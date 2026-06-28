@@ -32,23 +32,23 @@
   /* TOP BAR */
   .top-bar {
     width: 100%;
-    max-width: 860px;
+    max-width: 1060px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
   }
   .event-pill {
-    font-size: 20px;
+    font-size: 24px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--muted);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
-    padding: 6px 16px;
+    border-radius: 24px;
+    padding: 8px 22px;
   }
   .real-clock {
-    font-size: 22px;
+    font-size: 26px;
     color: var(--muted);
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.04em;
@@ -58,10 +58,10 @@
   /* MAIN CARD */
   .main-card {
     width: 100%;
-    max-width: 860px;
+    max-width: 1060px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 24px;
+    border-radius: 28px;
     overflow: hidden;
   }
 
@@ -70,16 +70,16 @@
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    padding: 3rem 3rem;
-    gap: 2rem;
+    padding: 4rem 3.5rem;
+    gap: 2.5rem;
     border-bottom: 1px solid var(--border);
   }
 
-  .team { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .team { display: flex; flex-direction: column; align-items: center; gap: 18px; }
 
   /* 팀 배지 공통 */
   .team-badge {
-    width: 96px; height: 96px;
+    width: 120px; height: 120px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
@@ -94,29 +94,29 @@
     padding: 8px;
   }
 
-  .team-name { font-size: 30px; font-weight: 600; }
-  .team-region { font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .team-name { font-size: 38px; font-weight: 700; }
+  .team-region { font-size: 16px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
 
-  .score-btn-group { display: flex; gap: 8px; margin-top: 6px; }
+  .score-btn-group { display: flex; gap: 10px; margin-top: 8px; }
   .btn-score {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 10px;
+    border-radius: 12px;
     color: var(--text);
-    font-size: 22px;
-    width: 44px; height: 44px;
+    font-size: 26px;
+    width: 54px; height: 54px;
     cursor: pointer;
     transition: background 0.15s;
     display: flex; align-items: center; justify-content: center;
   }
   .btn-score:hover { background: rgba(255,255,255,0.14); }
-  .btn-score:active { transform: scale(0.93); }
+  .btn-score:active { transform: scale(0.92); }
 
   /* SCORE CENTER */
-  .score-center { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-  .series-score { display: flex; align-items: center; gap: 14px; }
+  .score-center { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .series-score { display: flex; align-items: center; gap: 18px; }
   .series-num {
-    font-size: 80px; font-weight: 700; line-height: 1;
+    font-size: 100px; font-weight: 800; line-height: 1;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.03em;
     transition: transform 0.15s ease;
@@ -127,15 +127,16 @@
     40% { transform: scale(1.35); }
     100% { transform: scale(1); }
   }
-  .series-sep { font-size: 48px; color: var(--muted); font-weight: 300; }
-  .series-format { font-size: 14px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  .series-sep { font-size: 64px; color: var(--muted); font-weight: 300; }
+  .series-format { font-size: 16px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
   .live-badge {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 13px; color: #ff4d4d;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 15px; color: #ff4d4d;
     letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 600; /* ????????? */
   }
   .live-dot {
-    width: 7px; height: 7px; border-radius: 50%;
+    width: 9px; height: 9px; border-radius: 50%;
     background: #ff4d4d;
     animation: blink 1.4s ease-in-out infinite;
   }
@@ -151,57 +152,59 @@
   }
   .timer-box {
     background: var(--surface);
-    padding: 2rem 2.5rem;
-    display: flex; flex-direction: column; gap: 10px;
+    padding: 2rem 3.5rem;
+    display: flex; flex-direction: column; gap: 14px;
   }
   .box-label {
-    font-size: 20px; color: var(--muted);
+    font-size: 22px; color: var(--muted);
     letter-spacing: 0.1em; text-transform: uppercase;
   }
   .game-time-display {
-    font-size: 64px; font-weight: 600;
+    font-size: 82px; font-weight: 700;
     font-variant-numeric: tabular-nums;
     letter-spacing: -0.02em;
     color: var(--accent); line-height: 1;
   }
   .game-num-display {
-    font-size: 64px; font-weight: 600;
+    font-size: 82px; font-weight: 700;
     letter-spacing: -0.02em; line-height: 1;
   }
-  .game-num-sub { font-size: 22px; color: var(--muted); }
+  .game-num-sub { font-size: 24px; color: var(--muted); }
 
   .time-adjust {
-    display: flex; align-items: center; gap: 8px; margin-top: 4px;
+    display: flex; align-items: center; gap: 10px; margin-top: 6px;
   }
   .time-input {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 8px;
+    border-radius: 10px;
     color: var(--text);
-    font-size: 18px;
+    font-size: 22px;
     font-variant-numeric: tabular-nums;
-    padding: 6px 10px;
-    width: 72px; text-align: center; outline: none;
+    padding: 8px 14px;
+    width: 88px; text-align: center; outline: none;
   }
   .time-input:focus { border-color: var(--accent); }
-  .time-sep { color: var(--muted); font-size: 20px; }
+  .time-sep { color: var(--muted); font-size: 24px; }
   .btn-set-time {
     background: rgba(58,122,255,0.18);
     border: 1px solid rgba(58,122,255,0.35);
-    border-radius: 8px;
+    border-radius: 10px;
     color: var(--accent);
-    font-size: 15px; padding: 6px 16px;
+    font-size: 18px; padding: 8px 20px;
     cursor: pointer; transition: background 0.15s;
+    font-weight: 500; /*? */
   }
   .btn-set-time:hover { background: rgba(58,122,255,0.3); }
 
-  .timer-btns { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+  .timer-btns { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
   .btn-timer {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 8px; color: var(--text);
-    font-size: 15px; padding: 8px 18px;
+    border-radius: 10px; color: var(--text);
+    font-size: 18px; padding: 12px 24px;
     cursor: pointer; transition: background 0.15s;
+    font-weight: 500; /* ? */
   }
   .btn-timer:hover { background: rgba(255,255,255,0.12); }
   .btn-timer.primary {
@@ -212,16 +215,17 @@
 
   /* FOOTER */
   .footer {
-    padding: 1.25rem 2.5rem;
+    padding: 1.5rem 3.5rem;
     display: flex; align-items: center; justify-content: space-between;
   }
-  .footer-note { font-size: 18px; color: var(--muted); font-weight: 500; }
+  .footer-note { font-size: 22px; color: var(--muted); font-weight: 500; }
   .btn-reset {
     background: transparent;
     border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 8px; color: var(--muted);
-    font-size: 15px; padding: 7px 16px;
+    border-radius: 10px; color: var(--muted);
+    font-size: 18px; padding: 10px 22px;
     cursor: pointer; transition: all 0.15s;
+    font-weight: 500; /* ? */
   }
   .btn-reset:hover { color: var(--text); border-color: rgba(255,255,255,0.3); }
 
@@ -232,13 +236,13 @@
     background: rgba(0,0,0,0.75);
     z-index: 100;
     align-items: center; justify-content: center;
-    flex-direction: column; gap: 1.5rem;
+    flex-direction: column; gap: 2rem;
   }
   .winner-overlay.show { display: flex; animation: fadeIn 0.4s ease; }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   .winner-text-big {
-    font-size: 96px; font-weight: 700; color: #fff;
-    text-shadow: 0 4px 40px rgba(0,0,0,0.8);
+    font-size: 120px; font-weight: 800; color: #fff;
+    text-shadow: 0 4px 50px rgba(0,0,0,0.8);
     letter-spacing: -0.02em;
     animation: zoomIn 0.4s ease;
   }
