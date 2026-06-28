@@ -506,14 +506,14 @@
     txt.textContent = '🏆 ' + name + ' WIN!';
     overlay.classList.add('show');
 
-    const end = Date.now() + 10000;
+    const end = Date.now() + 4000;
     (function frame() {
       confetti({ particleCount: 6, angle: 60, spread: 55, origin:{x:0}, colors });
       confetti({ particleCount: 6, angle: 120, spread: 55, origin:{x:1}, colors });
       if (Date.now() < end) requestAnimationFrame(frame);
     })();
 
-    setTimeout(()=>{ overlay.classList.remove('show'); }, 10500);
+    setTimeout(()=>{ overlay.classList.remove('show'); }, 4500);
   }
 
   // 전체 초기화 (버그 수정 완비)
