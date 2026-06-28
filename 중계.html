@@ -416,7 +416,7 @@
     overlay.classList.add('show');
 
     // confetti
-    const end = Date.now() + 4000;
+    const end = Date.now() + 10000;
     const colors = name==='T1' ? ['#C8102E','#ffffff','#ff6b6b'] : ['#C9A84C','#ffffff','#ffe08a'];
     (function frame() {
       confetti({ particleCount: 6, angle: 60, spread: 55, origin:{x:0}, colors });
@@ -424,7 +424,7 @@
       if (Date.now() < end) requestAnimationFrame(frame);
     })();
 
-    setTimeout(()=>{ overlay.classList.remove('show'); }, 4500);
+    setTimeout(()=>{ overlay.classList.remove('show'); }, 10500);
   }
 
 
