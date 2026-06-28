@@ -34,14 +34,14 @@
   /* TOP BAR */
   .top-bar {
     width: 100%;
-    max-width: 900px;
+    max-width: 860px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 1.5rem;
   }
   .event-pill {
-    font-size: 16px;
+    font-size: 20px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--muted);
@@ -50,7 +50,7 @@
     padding: 6px 16px;
   }
   .real-clock {
-    font-size: 18px;
+    font-size: 22px;
     color: var(--muted);
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.04em;
@@ -60,7 +60,7 @@
   /* MAIN CARD */
   .main-card {
     width: 100%;
-    max-width: 900px;
+    max-width: 860px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 24px;
@@ -157,7 +157,7 @@
     display: flex; flex-direction: column; gap: 10px;
   }
   .box-label {
-    font-size: 14px; color: var(--muted);
+    font-size: 20px; color: var(--muted);
     letter-spacing: 0.1em; text-transform: uppercase;
   }
   .game-time-display {
@@ -170,7 +170,7 @@
     font-size: 64px; font-weight: 600;
     letter-spacing: -0.02em; line-height: 1;
   }
-  .game-num-sub { font-size: 16px; color: var(--muted); }
+  .game-num-sub { font-size: 22px; color: var(--muted); }
 
   .time-adjust {
     display: flex; align-items: center; gap: 8px; margin-top: 4px;
@@ -240,28 +240,24 @@
   }
   .winner-overlay.show { display: flex; animation: fadeIn 0.4s ease; }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  .winner-img {
-    width: min(480px, 80vw);
-    border-radius: 20px;
+  .winner-text-big {
+    font-size: 96px; font-weight: 700; color: #fff;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.8);
+    letter-spacing: -0.02em;
     animation: zoomIn 0.4s ease;
   }
   @keyframes zoomIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  .winner-text-big {
-    font-size: 36px; font-weight: 700; color: #fff;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.6);
-  }
 </style>
 </head>
 <body>
 
 <!-- WINNER OVERLAY -->
 <div class="winner-overlay" id="winner-overlay">
-  <img class="winner-img" id="winner-img" src="" alt="winner">
   <div class="winner-text-big" id="winner-text-big"></div>
 </div>
 
 <div class="top-bar">
-  <div class="event-pill">MSI 2025 · Bracket Stage</div>
+  <div class="event-pill">MSI 2026 · Bracket Stage</div>
   <div class="real-clock">KST&nbsp;<span id="realtime">--:--:--</span></div>
 </div>
 
@@ -404,22 +400,19 @@
     const el = document.getElementById('winner-text');
     if (setT1===3) {
       el.textContent = '🏆 T1 승리!';
-      showWinner('T1', 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/T1_logo.svg/1200px-T1_logo.svg.png');
+      showWinner('T1');
     } else if (setTLAW===3) {
       el.textContent = '🏆 TLAW 승리!';
-      showWinner('TLAW', '');
+      showWinner('TLAW');
     } else {
       el.textContent = '';
     }
   }
 
-  function showWinner(name, imgUrl) {
+  function showWinner(name) {
     const overlay = document.getElementById('winner-overlay');
-    const img = document.getElementById('winner-img');
     const txt = document.getElementById('winner-text-big');
-    txt.textContent = '🏆 ' + name + ' 승리!';
-    img.src = imgUrl;
-    img.style.display = imgUrl ? 'block' : 'none';
+    txt.textContent = '🏆 ' + name + ' WIN!';
     overlay.classList.add('show');
 
     // confetti
