@@ -337,47 +337,47 @@
   // 데이터 마스터 사전 (팀 정보 통합 관리)
   // ==========================================
   const dbTeams = {
-    kc: {
-      name: "KC",
-      region: "LEC · Europe",
-      ext: "logo.svg", // 확장자 svg
-      hasBg: true, // 흰배경 있음 처리
-      color: "#00A3E0", // 하늘색
-      bgStyle: "#ffffff",
-      shadow: "rgba(0,163,224,0.35)",
-      confetti: ['#00A3E0','#ffffff','#0A162B']
-    },
-    dcg: {
-      name: "DCG",
-      region: "LCP · PCS",
-      ext: "logo.webp", // 확장자 webp
-      hasBg: true,
-      color: "#3a7aff", // 파란색
-      bgStyle: "#111116",
-      shadow: "rgba(58,122,255,0.25)",
-      confetti: ['#3a7aff','#ffffff','#111116']
-    },
-    tlaw: {
-      name: "TLAW",
-      region: "LCS · Americas",
-      ext: "logo.webp", 
-      hasBg: true,
-      color: "#1d2d50", // 남색
-      bgStyle: "#0d1117",
-      shadow: "rgba(29,45,80,0.3)",
-      confetti: ['#1d2d50','#C9A84C','#ffffff']
-    },
-    t1: {
-      name: "T1",
-      region: "LCK · Korea",
-      ext: "logo.svg",
-      hasBg: true,
-      color: "#C8102E", // 빨간색
-      bgStyle: "#C8102E",
-      shadow: "rgba(200,16,46,0.4)",
-      confetti: ['#C8102E','#ffffff','#ff6b6b']
-    }
-  };
+      kc: {
+        name: "KC",
+        region: "LEC · Europe",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/kc_logo.svg", 
+        hasBg: true, 
+        color: "#00A3E0", 
+        bgStyle: "#ffffff",
+        shadow: "rgba(0,163,224,0.35)",
+        confetti: ['#00A3E0','#ffffff','#0A162B']
+      },
+      dcg: {
+        name: "DCG",
+        region: "LCP · PCS",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/dcg_logo.webp", 
+        hasBg: false,
+        color: "#3a7aff", 
+        bgStyle: "#111116",
+        shadow: "rgba(58,122,255,0.25)",
+        confetti: ['#3a7aff','#ffffff','#111116']
+      },
+      tlaw: {
+        name: "TLAW",
+        region: "LCS · Americas",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/tlaw_logo.webp", 
+        hasBg: false,
+        color: "#1d2d50", 
+        bgStyle: "#0d1117",
+        shadow: "rgba(29,45,80,0.3)",
+        confetti: ['#1d2d50','#C9A84C','#ffffff']
+      },
+      t1: {
+        name: "T1",
+        region: "LCK · Korea",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/t1_logo.svg", 
+        hasBg: false,
+        color: "#C8102E", 
+        bgStyle: "#C8102E",
+        shadow: "rgba(200,16,46,0.4)",
+        confetti: ['#C8102E','#ffffff','#ff6b6b']
+      }
+    };
 
   // 실시간 점수 관리 변수
   let scoreLeft = 0, scoreRight = 0;
