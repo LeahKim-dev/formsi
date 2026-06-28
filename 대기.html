@@ -396,8 +396,8 @@
     document.getElementById('region-left').textContent = leftData.region;
     const bLeft = document.getElementById('badge-left');
     bLeft.style.background = leftData.bgStyle;
-    bLeft.style.border = `2px solid ${leftData.color}`;
-    bLeft.style.boxShadow = `0 0 40px ${leftData.shadow}`;
+    bLeft.style.border = `4px solid ${leftData.color}`;
+    bLeft.style.boxShadow = `0 0 50px ${leftData.shadow}`;
     bLeft.innerHTML = `<img src="${leftData.logoUrl}" alt="${leftData.name}">`; // 주소 다이렉트 바인딩
     if(leftData.hasBg) bLeft.classList.add('has-bg');
 
@@ -406,8 +406,8 @@
     document.getElementById('region-right').textContent = rightData.region;
     const bRight = document.getElementById('badge-right');
     bRight.style.background = rightData.bgStyle;
-    bRight.style.border = `2px solid ${rightData.color}`;
-    bRight.style.boxShadow = `0 0 40px ${rightData.shadow}`;
+    bRight.style.border = `4px solid ${rightData.color}`;
+    bRight.style.boxShadow = `0 0 50px ${rightData.shadow}`;
     bRight.innerHTML = `<img src="${rightData.logoUrl}" alt="${rightData.name}">`; // 주소 다이렉트 바인딩
     if(rightData.hasBg) bRight.classList.add('has-bg');
   }
