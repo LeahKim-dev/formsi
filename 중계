@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T1 vs TLAW — MSI 2026</title>
+<style>
+  :root {
+    --t1-red: #C8102E;
+    --tlaw-gold: #C9A84C;
+    --tlaw-dark: #0D1117;
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0f0f0;
+    --muted: #666680;
+    --accent: #3a7aff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    user-select: none;
+  }
+
+  /* TOP BAR */
+  .top-bar {
+    width: 100%;
+    max-width: 860px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding: 0 0.25rem;
+  }
+  .event-pill {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 4px 12px;
+  }
+  .real-clock {
+    font-size: 13px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+  }
+  #realtime { color: var(--text); font-weight: 500; }
+
+  /* MAIN CARD */
+  .main-card {
+    width: 100%;
+    max-width: 860px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  /* MATCH HEADER */
+  .match-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 2.5rem 2rem;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .team { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .team-right { align-items: center; }
+
+  .team-badge {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .team-badge.t1 {
+    background: var(--t1-red);
+    color: #fff;
+    box-shadow: 0 0 32px rgba(200,16,46,0.35);
+  }
+  .team-badge.tlaw {
+    background: #0d1117;
+    border: 2px solid var(--tlaw-gold);
+    color: var(--tlaw-gold);
+    box-shadow: 0 0 32px rgba(201,168,76,0.2);
+  }
+  .team-name { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  .team-region { font-size: 11px; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* SCORE CENTER */
+  .score-center { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .series-score {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .series-num {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+  }
+  .series-sep { font-size: 36px; color: var(--muted); font-weight: 300; }
+  .series-format { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  .live-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: #ff4d4d;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #ff4d4d;
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  /* SCORE CONTROLS */
+  .score-btn-group {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .btn-score {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .btn-score:hover { background: rgba(255,255,255,0.12); }
+  .btn-score:active { transform: scale(0.94); }
+
+  /* GAME TIMER SECTION */
+  .timer-section {
+    padding: 1.75rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    border-bottom: 1px solid var(--border);
+    background: var(--border);
+  }
+  .timer-box {
+    background: var(--surface);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .timer-box:first-child { border-radius: 0 0 0 0; }
+  .box-label {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .game-time-display {
+    font-size: 48px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .game-num-display {
+    font-size: 48px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .game-num-sub { font-size: 13px; color: var(--muted); }
+
+  .time-adjust {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .time-input {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+    padding: 5px 8px;
+    width: 64px;
+    text-align: center;
+    outline: none;
+  }
+  .time-input:focus { border-color: var(--accent); }
+  .time-sep { color: var(--muted); font-size: 16px; }
+  .btn-set-time {
+    background: rgba(58,122,255,0.18);
+    border: 1px solid rgba(58,122,255,0.35);
+    border-radius: 8px;
+    color: var(--accent);
+    font-size: 12px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-set-time:hover { background: rgba(58,122,255,0.3); }
+
+  .timer-btns {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .btn-timer {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 12px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-timer:hover { background: rgba(255,255,255,0.12); }
+  .btn-timer.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .btn-timer.primary:hover { background: #2a6aef; }
+  .btn-timer:active { transform: scale(0.96); }
+
+  /* KILL SECTION */
+  .kill-section {
+    padding: 1.75rem 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .kill-header {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+  .kill-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .kill-team-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .kill-num {
+    font-size: 64px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .kill-num.t1 { color: var(--t1-red); }
+  .kill-num.tlaw { color: var(--tlaw-gold); }
+  .kill-team-label { font-size: 12px; color: var(--muted); }
+  .kill-btn-group {
+    display: flex;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .btn-kill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .btn-kill:hover { background: rgba(255,255,255,0.14); }
+  .btn-kill:active { transform: scale(0.94); }
+
+  .kill-vs {
+    width: 60px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .kill-bar-wrap {
+    width: 100%;
+    max-width: 340px;
+    margin: 1rem auto 0;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .kill-bar-t1 {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: var(--t1-red);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .kill-total-label {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-note { font-size: 11px; color: var(--muted); }
+  .btn-reset {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-reset:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+
+  @media (max-width: 580px) {
+    .match-header { padding: 1.5rem 1rem; gap: 0.75rem; }
+    .series-num { font-size: 40px; }
+    .team-badge { width: 56px; height: 56px; font-size: 18px; }
+    .team-name { font-size: 18px; }
+    .kill-num { font-size: 48px; }
+    .game-time-display { font-size: 36px; }
+    .timer-section { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="event-pill">MSI 2025 · Bracket Stage</div>
+  <div class="real-clock">KST&nbsp; <span id="realtime">--:--:--</span></div>
+</div>
+
+<div class="main-card">
+
+  <!-- MATCH HEADER -->
+  <div class="match-header">
+    <div class="team">
+      <div class="team-badge t1">T1</div>
+      <div class="team-name">T1</div>
+      <div class="team-region">LCK · Korea</div>
+      <div class="score-btn-group">
+        <button class="btn-score" onclick="changeSet('t1',-1)">−</button>
+        <button class="btn-score" onclick="changeSet('t1',1)">+</button>
+      </div>
+    </div>
+
+    <div class="score-center">
+      <div class="series-score">
+        <span class="series-num" id="set-t1">0</span>
+        <span class="series-sep">:</span>
+        <span class="series-num" id="set-tlaw">0</span>
+      </div>
+      <div class="series-format">Best of 5</div>
+      <div class="live-badge"><span class="live-dot"></span> Live</div>
+    </div>
+
+    <div class="team team-right">
+      <div class="team-badge tlaw">TL</div>
+      <div class="team-name">TLAW</div>
+      <div class="team-region">LCS · Americas</div>
+      <div class="score-btn-group">
+        <button class="btn-score" onclick="changeSet('tlaw',-1)">−</button>
+        <button class="btn-score" onclick="changeSet('tlaw',1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMER + GAME NUM -->
+  <div class="timer-section">
+    <div class="timer-box">
+      <div class="box-label">게임 타이머</div>
+      <div class="game-time-display" id="game-timer">00:00</div>
+      <div class="time-adjust">
+        <input class="time-input" id="input-min" type="number" min="0" max="99" value="0">
+        <span class="time-sep">:</span>
+        <input class="time-input" id="input-sec" type="number" min="0" max="59" value="0">
+        <button class="btn-set-time" onclick="setManualTime()">설정</button>
+      </div>
+      <div class="timer-btns">
+        <button class="btn-timer primary" id="btn-start" onclick="startTimer()">▶ 시작</button>
+        <button class="btn-timer" onclick="pauseTimer()">⏸ 정지</button>
+        <button class="btn-timer" onclick="resetTimer()">↺ 초기화</button>
+      </div>
+    </div>
+    <div class="timer-box">
+      <div class="box-label">현재 게임</div>
+      <div class="game-num-display" id="game-num">1</div>
+      <div class="game-num-sub">Game <span id="game-num-sub">1</span> of 5</div>
+    </div>
+  </div>
+
+  <!-- KILL COUNTER -->
+  <div class="kill-section">
+    <div class="kill-header">킬 수</div>
+    <div class="kill-row">
+      <div class="kill-team-block">
+        <div class="kill-num t1" id="kill-t1">0</div>
+        <div class="kill-team-label">T1</div>
+        <div class="kill-btn-group">
+          <button class="btn-kill" onclick="changeKill('t1',-1)">−</button>
+          <button class="btn-kill" onclick="changeKill('t1',1)">+</button>
+        </div>
+      </div>
+      <div class="kill-vs">
+        <span style="font-size:13px; color: var(--muted);">vs</span>
+      </div>
+      <div class="kill-team-block">
+        <div class="kill-num tlaw" id="kill-tlaw">0</div>
+        <div class="kill-team-label">TLAW</div>
+        <div class="kill-btn-group">
+          <button class="btn-kill" onclick="changeKill('tlaw',-1)">−</button>
+          <button class="btn-kill" onclick="changeKill('tlaw',1)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="kill-bar-wrap">
+      <div class="kill-bar-t1" id="kill-bar" style="width:50%"></div>
+    </div>
+    <div class="kill-total-label" id="kill-total">총 킬 0</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-note" id="winner-text"></div>
+    <button class="btn-reset" onclick="resetAll()">전체 초기화</button>
+  </div>
+</div>
+
+<script>
+  let setT1 = 0, setTLAW = 0;
+  let killT1 = 0, killTLAW = 0;
+  let timerSec = 0, timerRunning = false, timerInterval = null;
+
+  function pad(n) { return String(n).padStart(2,'0'); }
+
+  // Real clock
+  function tick() {
+    const now = new Date();
+    document.getElementById('realtime').textContent =
+      pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // Game timer
+  function updateTimerDisplay() {
+    const m = Math.floor(timerSec / 60);
+    const s = timerSec % 60;
+    document.getElementById('game-timer').textContent = pad(m) + ':' + pad(s);
+  }
+  function startTimer() {
+    if (timerRunning) return;
+    timerRunning = true;
+    document.getElementById('btn-start').textContent = '▶ 진행 중';
+    timerInterval = setInterval(() => { timerSec++; updateTimerDisplay(); }, 1000);
+  }
+  function pauseTimer() {
+    if (!timerRunning) return;
+    timerRunning = false;
+    clearInterval(timerInterval);
+    document.getElementById('btn-start').textContent = '▶ 재개';
+  }
+  function resetTimer() {
+    pauseTimer();
+    timerSec = 0;
+    updateTimerDisplay();
+    document.getElementById('input-min').value = 0;
+    document.getElementById('input-sec').value = 0;
+    document.getElementById('btn-start').textContent = '▶ 시작';
+  }
+
+  function setManualTime() {
+    const m = parseInt(document.getElementById('input-min').value) || 0;
+    const s = parseInt(document.getElementById('input-sec').value) || 0;
+    const wasRunning = timerRunning;
+    pauseTimer();
+    timerSec = m * 60 + Math.min(s, 59);
+    updateTimerDisplay();
+    if (wasRunning) startTimer();
+  }
+
+  // Series score
+  function changeSet(team, delta) {
+    if (team === 't1') setT1 = Math.max(0, Math.min(3, setT1 + delta));
+    else setTLAW = Math.max(0, Math.min(3, setTLAW + delta));
+    document.getElementById('set-t1').textContent = setT1;
+    document.getElementById('set-tlaw').textContent = setTLAW;
+    const gameNum = setT1 + setTLAW + 1;
+    const g = Math.min(gameNum, 5);
+    document.getElementById('game-num').textContent = g;
+    document.getElementById('game-num-sub').textContent = g;
+    checkWinner();
+  }
+
+  function checkWinner() {
+    const el = document.getElementById('winner-text');
+    if (setT1 === 3) el.textContent = '🏆 T1 승리! (' + setT1 + ':' + setTLAW + ')';
+    else if (setTLAW === 3) el.textContent = '🏆 TLAW 승리! (' + setT1 + ':' + setTLAW + ')';
+    else el.textContent = '';
+  }
+
+  // Kill counter
+  function changeKill(team, delta) {
+    if (team === 't1') killT1 = Math.max(0, killT1 + delta);
+    else killTLAW = Math.max(0, killTLAW + delta);
+    document.getElementById('kill-t1').textContent = killT1;
+    document.getElementById('kill-tlaw').textContent = killTLAW;
+    const total = killT1 + killTLAW;
+    document.getElementById('kill-total').textContent = '총 킬 ' + total;
+    const pct = total === 0 ? 50 : Math.round((killT1 / total) * 100);
+    document.getElementById('kill-bar').style.width = pct + '%';
+  }
+
+  // Reset all
+  function resetAll() {
+    if (!confirm('전체 초기화하시겠습니까?')) return;
+    setT1 = 0; setTLAW = 0;
+    killT1 = 0; killTLAW = 0;
+    document.getElementById('set-t1').textContent = 0;
+    document.getElementById('set-tlaw').textContent = 0;
+    document.getElementById('kill-t1').textContent = 0;
+    document.getElementById('kill-tlaw').textContent = 0;
+    document.getElementById('kill-total').textContent = '총 킬 0';
+    document.getElementById('kill-bar').style.width = '50%';
+    document.getElementById('game-num').textContent = 1;
+    document.getElementById('game-num-sub').textContent = 1;
+    document.getElementById('winner-text').textContent = '';
+    resetTimer();
+  }
+</script>
+</body>
+</html>
