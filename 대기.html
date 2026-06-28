@@ -251,7 +251,7 @@
 </div>
 
 <div class="top-bar">
-  <div class="event-pill">MSI 2026 · Bracket Stage</div>
+  <div class="event-pill">MSI 2026 · 플레이-인</div>
   <div class="real-clock">KST&nbsp;<span id="realtime">--:--:--</span></div>
 </div>
 
@@ -330,9 +330,6 @@
   const teamLeft = 'kc';
   const teamRight = 'dcg';
   
-  // Repo 이미지 기본 경로 (본인의 경로에 맞춰 필요시 수정)
-  const repoBaseUrl = "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/";
-
   // ==========================================
   // 데이터 마스터 사전 (팀 정보 통합 관리)
   // ==========================================
@@ -383,7 +380,7 @@
   let scoreLeft = 0, scoreRight = 0;
   let timerSec = 0, timerRunning = false, timerInterval = null;
 
-  // 화면 초기 세팅 빌더 함수
+// 화면 초기 세팅 빌더 함수 (이 내부도 logoUrl을 바로 가져오도록 수정되었습니다)
   function initLayout() {
     const leftData = dbTeams[teamLeft];
     const rightData = dbTeams[teamRight];
@@ -400,7 +397,7 @@
     bLeft.style.background = leftData.bgStyle;
     bLeft.style.border = `2px solid ${leftData.color}`;
     bLeft.style.boxShadow = `0 0 40px ${leftData.shadow}`;
-    bLeft.innerHTML = `<img src="${repoBaseUrl}${teamLeft}.${leftData.ext}" alt="${leftData.name}">`;
+    bLeft.innerHTML = `<img src="${leftData.logoUrl}" alt="${leftData.name}">`; // 주소 다이렉트 바인딩
     if(leftData.hasBg) bLeft.classList.add('has-bg');
 
     // 오른쪽 팀 렌더링
@@ -410,7 +407,7 @@
     bRight.style.background = rightData.bgStyle;
     bRight.style.border = `2px solid ${rightData.color}`;
     bRight.style.boxShadow = `0 0 40px ${rightData.shadow}`;
-    bRight.innerHTML = `<img src="${repoBaseUrl}${teamRight}.${rightData.ext}" alt="${rightData.name}">`;
+    bRight.innerHTML = `<img src="${rightData.logoUrl}" alt="${rightData.name}">`; // 주소 다이렉트 바인딩
     if(rightData.hasBg) bRight.classList.add('has-bg');
   }
 
