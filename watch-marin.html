@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>T1 vs TLAW — MSI 2026</title>
+<title>KC vs DCG — MSI 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 <style>
   :root {
-    --t1-red: #C8102E;
-    --tlaw-gold: #C9A84C;
+    --kc-blue: #0A162B;
+    --kc-cyan: #00A3E0;
+    --dcg-red: #E2011A;
+    --dcg-dark: #111116;
     --bg: #0a0a0f;
     --surface: #12121a;
     --border: rgba(255,255,255,0.08);
@@ -85,16 +87,19 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 28px; font-weight: 700;
   }
-  .team-badge.t1 {
-    background: var(--t1-red);
+  /* KC 팀 색상 (블루 + 네온 블루 광채) */
+  .team-badge.kc {
+    background: var(--kc-blue);
+    border: 2px solid var(--kc-cyan);
     color: #fff;
-    box-shadow: 0 0 40px rgba(200,16,46,0.4);
+    box-shadow: 0 0 40px rgba(0,163,224,0.35);
   }
-  .team-badge.tlaw {
-    background: #0d1117;
-    border: 2px solid var(--tlaw-gold);
-    color: var(--tlaw-gold);
-    box-shadow: 0 0 40px rgba(201,168,76,0.25);
+  /* DCG 팀 색상 (블랙 + 레드 포인트) */
+  .team-badge.dcg {
+    background: var(--dcg-dark);
+    border: 2px solid var(--dcg-red);
+    color: var(--dcg-red);
+    box-shadow: 0 0 40px rgba(226,1,26,0.25);
   }
   .team-name { font-size: 30px; font-weight: 600; }
   .team-region { font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
@@ -212,8 +217,6 @@
   .btn-timer.primary:hover { background: #2a6aef; }
   .btn-timer:active { transform: scale(0.96); }
 
-
-
   /* FOOTER */
   .footer {
     padding: 1.25rem 2.5rem;
@@ -257,7 +260,7 @@
 </div>
 
 <div class="top-bar">
-  <div class="event-pill">MSI 2026 · Bracket Stage</div>
+  <div class="event-pill">MSI 2026 · 플레이-인</div>
   <div class="real-clock">KST&nbsp;<span id="realtime">--:--:--</span></div>
 </div>
 
@@ -265,33 +268,35 @@
 
   <!-- MATCH HEADER -->
   <div class="match-header">
+    <!-- 왼쪽 팀: KC (LEC #2) -->
     <div class="team">
-      <div class="team-badge t1">T1</div>
-      <div class="team-name">T1</div>
-      <div class="team-region">LCK · Korea</div>
+      <div class="team-badge kc">KC</div>
+      <div class="team-name">KC</div>
+      <div class="team-region">LEC · Europe</div>
       <div class="score-btn-group">
-        <button class="btn-score" onclick="changeSet('t1',-1)">−</button>
-        <button class="btn-score" onclick="changeSet('t1',1)">+</button>
+        <button class="btn-score" onclick="changeSet('kc',-1)">−</button>
+        <button class="btn-score" onclick="changeSet('kc',1)">+</button>
       </div>
     </div>
 
     <div class="score-center">
       <div class="series-score">
-        <span class="series-num" id="set-t1">0</span>
+        <span class="series-num" id="set-kc">0</span>
         <span class="series-sep">:</span>
-        <span class="series-num" id="set-tlaw">0</span>
+        <span class="series-num" id="set-dcg">0</span>
       </div>
       <div class="series-format">Best of 5</div>
       <div class="live-badge"><span class="live-dot"></span> Live</div>
     </div>
 
+    <!-- 오른쪽 팀: DCG (LCP #2) -->
     <div class="team">
-      <div class="team-badge tlaw">TL</div>
-      <div class="team-name">TLAW</div>
-      <div class="team-region">LCS · Americas</div>
+      <div class="team-badge dcg">DCG</div>
+      <div class="team-name">DCG</div>
+      <div class="team-region">LCP · PCS</div>
       <div class="score-btn-group">
-        <button class="btn-score" onclick="changeSet('tlaw',-1)">−</button>
-        <button class="btn-score" onclick="changeSet('tlaw',1)">+</button>
+        <button class="btn-score" onclick="changeSet('dcg',-1)">−</button>
+        <button class="btn-score" onclick="changeSet('dcg',1)">+</button>
       </div>
     </div>
   </div>
@@ -328,7 +333,7 @@
 </div>
 
 <script>
-  let setT1 = 0, setTLAW = 0;
+  let setKC = 0, setDCG = 0;
   let timerSec = 0, timerRunning = false, timerInterval = null;
 
   function pad(n) { return String(n).padStart(2,'0'); }
@@ -384,12 +389,15 @@
 
   // Series score
   function changeSet(team, delta) {
-    if (team==='t1') setT1 = Math.max(0, Math.min(3, setT1+delta));
-    else setTLAW = Math.max(0, Math.min(3, setTLAW+delta));
-    document.getElementById('set-t1').textContent = setT1;
-    document.getElementById('set-tlaw').textContent = setTLAW;
-    if (delta > 0) popScore(team==='t1' ? 'set-t1' : 'set-tlaw');
-    const g = Math.min(setT1+setTLAW+1, 5);
+    if (team==='kc') setKC = Math.max(0, Math.min(3, setKC+delta));
+    else setDCG = Math.max(0, Math.min(3, setDCG+delta));
+    
+    document.getElementById('set-kc').textContent = setKC;
+    document.getElementById('set-dcg').textContent = setDCG;
+    
+    if (delta > 0) popScore(team==='kc' ? 'set-kc' : 'set-dcg');
+    
+    const g = Math.min(setKC+setDCG+1, 5);
     document.getElementById('game-num').textContent = g;
     document.getElementById('game-num-sub').textContent = g;
     checkWinner();
@@ -398,12 +406,12 @@
   // Winner
   function checkWinner() {
     const el = document.getElementById('winner-text');
-    if (setT1===3) {
-      el.textContent = '🏆 T1 승리!';
-      showWinner('T1');
-    } else if (setTLAW===3) {
-      el.textContent = '🏆 TLAW 승리!';
-      showWinner('TLAW');
+    if (setKC===3) {
+      el.textContent = '🏆 KC 승리!';
+      showWinner('KC');
+    } else if (setDCG===3) {
+      el.textContent = '🏆 DCG 승리!';
+      showWinner('DCG');
     } else {
       el.textContent = '';
     }
@@ -415,9 +423,9 @@
     txt.textContent = '🏆 ' + name + ' WIN!';
     overlay.classList.add('show');
 
-    // confetti
+    // confetti (팀 컨셉에 맞는 색상 설정)
     const end = Date.now() + 10000;
-    const colors = name==='T1' ? ['#C8102E','#ffffff','#ff6b6b'] : ['#C9A84C','#ffffff','#ffe08a'];
+    const colors = name==='KC' ? ['#00A3E0','#ffffff','#0A162B'] : ['#E2011A','#ffffff','#111116'];
     (function frame() {
       confetti({ particleCount: 6, angle: 60, spread: 55, origin:{x:0}, colors });
       confetti({ particleCount: 6, angle: 120, spread: 55, origin:{x:1}, colors });
@@ -427,13 +435,12 @@
     setTimeout(()=>{ overlay.classList.remove('show'); }, 10500);
   }
 
-
-  // Reset all
+  // Reset all (버그 완벽 수정 완료)
   function resetAll() {
     if (!confirm('전체 초기화하시겠습니까?')) return;
-    setT1=0; setTLAW=0; killT1=0; killTLAW=0;
-    document.getElementById('set-t1').textContent=0;
-    document.getElementById('set-tlaw').textContent=0;
+    setKC=0; setDCG=0;
+    document.getElementById('set-kc').textContent=0;
+    document.getElementById('set-dcg').textContent=0;
     document.getElementById('game-num').textContent=1;
     document.getElementById('game-num-sub').textContent=1;
     document.getElementById('winner-text').textContent='';
