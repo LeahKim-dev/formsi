@@ -566,7 +566,7 @@
         // 우아하게 떨어지는 금빛 눈송이 (천장에서 상시로 조금씩)
         if (Math.random() < 0.15) {
           confetti({
-            particleCount: 2, startVelocity: 0, ticks: 400, gravity: 0.3, scale: 1.2,
+            particleCount: 2, startVelocity: 0, ticks: 600, gravity: 0.5, scale: 1.2,
             origin: { x: Math.random(), y: -0.1 },
             colors: ['#FFD700', '#ffffff'],
             drift: randomInRange(-0.8, 0.8),
@@ -583,99 +583,7 @@
         cancelAnimationFrame(frameId); // 애니메이션 깔끔하게 종료
       }, 10500);
     }
-  // ─── 🎇 미친듯이 휘몰아치는 우승 연출 시나리오 ───
-  // function showWinner(name, colors, winnerCustomImg) {
-  //   const overlay = document.getElementById('winner-overlay');
-  //   const txt = document.getElementById('winner-text-big');
-  //   const img = document.getElementById('winner-custom-img');
-
-  //   if (winnerCustomImg) {
-  //     img.src = winnerCustomImg;
-  //     img.style.display = 'block';
-  //   } else {
-  //     img.style.display = 'none';
-  //   }
-
-  //   if (name === 'T1') {
-  //     txt.textContent = '🏆 T1 브래킷 스테이지 진출!';
-  //   } else {
-  //     txt.textContent = '🏆 ' + name + ' WIN!';
-  //   }
-  //   overlay.classList.add('show');
-
-  //   const duration = 6000; // 6초 동안 연출 가동
-  //   const animationEnd = Date.now() + duration;
-
-  //   function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-
-  //   // 인터벌 1: 사방에서 대규모 메인 폭죽 무한 연사 (0.25초 주기)
-  //   const fireworkInterval = setInterval(function() {
-  //     const timeLeft = animationEnd - Date.now();
-  //     if (timeLeft <= 0) return clearInterval(fireworkInterval);
-
-  //     // 한 번 터질 때 파편 수 100개로 대폭 강화, 속도 업, 중력(gravity) 낮춰서 둥둥 뜨게 만듦
-  //     const config = { 
-  //       particleCount: 90, 
-  //       startVelocity: 22, 
-  //       spread: 360, 
-  //       ticks: 100, 
-  //       gravity: 0.8, 
-  //       zIndex: 99999 
-  //     };
-
-  //     confetti(Object.assign({}, config, { 
-  //       colors: colors,
-  //       origin: { x: randomInRange(0.1, 0.3), y: randomInRange(0.1, 0.4) } 
-  //     }));
-  //     confetti(Object.assign({}, config, { 
-  //       colors: colors,
-  //       origin: { x: randomInRange(0.7, 0.9), y: randomInRange(0.1, 0.4) } 
-  //     }));
-  //     confetti(Object.assign({}, config, { 
-  //       colors: ['#FFD700', '#ffffff', ...colors], // 금빛 가루 강제 믹싱
-  //       origin: { x: randomInRange(0.3, 0.7), y: randomInRange(0.3, 0.6) } 
-  //     }));
-  //   }, 250);
-
-  //   // 인터벌 2: 화면 천장에서 아래로 금빛 스파클 눈송이가 상시 쏟아지는 연출 (0.1초 주기)
-  //   const snowInterval = setInterval(function() {
-  //     const timeLeft = animationEnd - Date.now();
-  //     if (timeLeft <= 0) return clearInterval(snowInterval);
-
-  //     confetti({
-  //       particleCount: 30,
-  //       startVelocity: 0,
-  //       ticks: 120,
-  //       gravity: 0.7,
-  //       scale: 1.1,
-  //       origin: { x: Math.random(), y: Math.random() - 0.2 }, // 천장 위에서 스폰
-  //       colors: ['#FFD700', '#ffffff'], // 골드 & 화이트 고정
-  //       drift: randomInRange(-0.5, 0.5),
-  //       zIndex: 99999
-  //     });
-  //   }, 100);
-
-  //   const cannonInterval = setInterval(function() {
-  //     const timeLeft = animationEnd - Date.now();
-  //     if (timeLeft <= 0) return clearInterval(cannonInterval);
-
-  //     // 좌측 대형 축포 (각도 60도)
-  //     confetti({
-  //       particleCount: 80, angle: 60, spread: 55, startVelocity: 70, gravity: 1.2,
-  //       origin: { x: -0.1, y: 1 }, colors: colors, zIndex: 99999
-  //     });
-  //     // 우측 대형 축포 (각도 120도)
-  //     confetti({
-  //       particleCount: 80, angle: 120, spread: 55, startVelocity: 70, gravity: 1.2,
-  //       origin: { x: 1.1, y: 1 }, colors: colors, zIndex: 99999
-  //     });
-  //   }, 1200);
-
-  //   setTimeout(()=>{ 
-  //     overlay.classList.remove('show'); 
-  //   }, 6500);
-  // }
-
+  
   function resetAll() {
     if (!confirm('전체 초기화하시겠습니까?')) return;
     scoreLeft = 0; scoreRight = 0;

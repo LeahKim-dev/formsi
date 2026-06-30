@@ -393,9 +393,8 @@
     firebase.analytics();
   }
 
-  // ==========================================
-  // ⭐ [여기를 변경하세요] 대진표 이미지 주소 설정
-  // ==========================================
+
+  // 대진표
   const bracketImgUrl = "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/schedule.png"; 
 
   // ==========================================
@@ -621,85 +620,101 @@
     }
   }
 
-  function showWinner(name, colors, winnerCustomImg) {
+  // function showWinner(name, colors, winnerCustomImg) {
+  //   const overlay = document.getElementById('winner-overlay');
+  //   const txt = document.getElementById('winner-text-big');
+    
+  //   let img = document.getElementById('winner-custom-img');
+  //   if (!img) {
+  //     img = document.createElement('img');
+  //     img.id = 'winner-custom-img';
+  //     img.style.width = '720px';
+  //     img.style.maxHeight = '500px';
+  //     img.style.objectFit = 'contain';
+  //     img.style.borderRadius = '16px';
+  //     img.style.boxShadow = '0 20px 80px rgba(0,0,0,0.6)';
+  //     overlay.insertBefore(img, txt);
+  //   }
+
+  //   if (winnerCustomImg) {
+  //     img.src = winnerCustomImg;
+  //     img.style.display = 'block';
+  //   } else {
+  //     img.style.display = 'none';
+  //   }
+
+  //   if (name === 'T1') {
+  //     txt.textContent = '🏆 T1 브래킷 스테이지 진출!';
+  //   } else {
+  //     txt.textContent = '🏆 ' + name + ' WIN!';
+  //   }
+    
+  //   overlay.classList.add('show');
+
+  //   const duration = 10000;
+  //   const animationEnd = Date.now() + duration;
+
+  //   function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+  //   const cannonInterval = setInterval(function() {
+  //     if (Date.now() > animationEnd) return clearInterval(cannonInterval);
+
+  //     confetti({
+  //       particleCount: 100, angle: 60, spread: 75, startVelocity: 65, gravity: 0.85, ticks: 300,
+  //       origin: { x: -0.1, y: 1 }, colors: colors, zIndex: 99999
+  //     });
+  //     confetti({
+  //       particleCount: 100, angle: 120, spread: 75, startVelocity: 65, gravity: 0.85, ticks: 300,
+  //       origin: { x: 1.1, y: 1 }, colors: colors, zIndex: 99999
+  //     });
+  //   }, 1200);
+
+  //   let frameId;
+  //   function frame() {
+  //     if (Date.now() > animationEnd) return;
+
+  //     if (Math.random() < 0.04) {
+  //       confetti({
+  //         particleCount: 50, startVelocity: 25, spread: 360, ticks: 200, gravity: 0.6, zIndex: 99999,
+  //         colors: colors,
+  //         origin: { x: randomInRange(0.1, 0.9), y: randomInRange(0.1, 0.4) }
+  //       });
+  //     }
+
+  //     if (Math.random() < 0.15) {
+  //       confetti({
+  //         particleCount: 2, startVelocity: 0, ticks: 400, gravity: 0.3, scale: 1.2,
+  //         origin: { x: Math.random(), y: -0.1 },
+  //         colors: ['#FFD700', '#ffffff'],
+  //         drift: randomInRange(-0.8, 0.8),
+  //         zIndex: 99999
+  //       });
+  //     }
+
+  //     frameId = requestAnimationFrame(frame);
+  //   }
+  //   frame();
+
+  //   setTimeout(() => { 
+  //     overlay.classList.remove('show'); 
+  //     cancelAnimationFrame(frameId);
+  //   }, 10500);
+  // }
+  // 위너 모달 오버레이 바인딩 + 폭죽 컬러 동적 할당
+  function showWinner(name, colors) {
     const overlay = document.getElementById('winner-overlay');
     const txt = document.getElementById('winner-text-big');
-    
-    let img = document.getElementById('winner-custom-img');
-    if (!img) {
-      img = document.createElement('img');
-      img.id = 'winner-custom-img';
-      img.style.width = '720px';
-      img.style.maxHeight = '500px';
-      img.style.objectFit = 'contain';
-      img.style.borderRadius = '16px';
-      img.style.boxShadow = '0 20px 80px rgba(0,0,0,0.6)';
-      overlay.insertBefore(img, txt);
-    }
-
-    if (winnerCustomImg) {
-      img.src = winnerCustomImg;
-      img.style.display = 'block';
-    } else {
-      img.style.display = 'none';
-    }
-
-    if (name === 'T1') {
-      txt.textContent = '🏆 T1 브래킷 스테이지 진출!';
-    } else {
-      txt.textContent = '🏆 ' + name + ' WIN!';
-    }
-    
+    txt.textContent = '🏆 ' + name + ' WIN!';
     overlay.classList.add('show');
 
-    const duration = 10000;
-    const animationEnd = Date.now() + duration;
+    const end = Date.now() + 4000;
+    (function frame() {
+      confetti({ particleCount: 6, angle: 60, spread: 55, origin:{x:0}, colors });
+      confetti({ particleCount: 6, angle: 120, spread: 55, origin:{x:1}, colors });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
 
-    function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-
-    const cannonInterval = setInterval(function() {
-      if (Date.now() > animationEnd) return clearInterval(cannonInterval);
-
-      confetti({
-        particleCount: 100, angle: 60, spread: 75, startVelocity: 65, gravity: 0.85, ticks: 300,
-        origin: { x: -0.1, y: 1 }, colors: colors, zIndex: 99999
-      });
-      confetti({
-        particleCount: 100, angle: 120, spread: 75, startVelocity: 65, gravity: 0.85, ticks: 300,
-        origin: { x: 1.1, y: 1 }, colors: colors, zIndex: 99999
-      });
-    }, 1200);
-
-    let frameId;
-    function frame() {
-      if (Date.now() > animationEnd) return;
-
-      if (Math.random() < 0.04) {
-        confetti({
-          particleCount: 50, startVelocity: 25, spread: 360, ticks: 200, gravity: 0.6, zIndex: 99999,
-          colors: colors,
-          origin: { x: randomInRange(0.1, 0.9), y: randomInRange(0.1, 0.4) }
-        });
-      }
-
-      if (Math.random() < 0.15) {
-        confetti({
-          particleCount: 2, startVelocity: 0, ticks: 400, gravity: 0.3, scale: 1.2,
-          origin: { x: Math.random(), y: -0.1 },
-          colors: ['#FFD700', '#ffffff'],
-          drift: randomInRange(-0.8, 0.8),
-          zIndex: 99999
-        });
-      }
-
-      frameId = requestAnimationFrame(frame);
-    }
-    frame();
-
-    setTimeout(() => { 
-      overlay.classList.remove('show'); 
-      cancelAnimationFrame(frameId);
-    }, 10500);
+    setTimeout(()=>{ overlay.classList.remove('show'); }, 4500);
   }
 
   function resetAll() {
