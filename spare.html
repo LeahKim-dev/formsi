@@ -429,10 +429,10 @@
         region: "LCK · Korea",
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/t1_logo.svg", 
         hasBg: true,
-        color: "#C8102E", 
-        bgStyle: "#fdfbfb1",
+        color: "#aa0025", 
+        bgStyle: "#111111",
         shadow: "rgba(200,16,46,0.4)",
-        confetti: ['#C8102E','#ffffff','#ff6b6b']
+        confetti: ['#aa0025','#ff6b6b','#ffffff']
       },
       furia: {
         name: "FURIA",
@@ -489,10 +489,10 @@
         region: "LPL · China",
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/tes_logo.webp",
         hasBg: true,
-        color: "#fc312a",
+        color: "#ca2823",
         bgStyle: "#fdfbfb",
         shadow: "rgba(230,0,18,0.4)",
-        confetti: ['#fc312a', '#ffffff', '#000000']
+        confetti: ['#ca2823', '#ffffff', '#fc6565']
       },
       blg: {
         name: "BLG",
@@ -526,7 +526,7 @@
     document.getElementById('region-left').textContent = leftData.region;
     const bLeft = document.getElementById('badge-left');
     bLeft.style.background = leftData.bgStyle;
-    bLeft.style.border = `5px solid ${leftData.color}`;
+    bLeft.style.border = `4px solid ${leftData.color}`;
     bLeft.style.boxShadow = `0 0 50px ${leftData.shadow}`;
     bLeft.innerHTML = `<img src="${leftData.logoUrl}" alt="${leftData.name}">`; // 주소 다이렉트 바인딩
     if(leftData.hasBg) bLeft.classList.add('has-bg');
@@ -536,7 +536,7 @@
     document.getElementById('region-right').textContent = rightData.region;
     const bRight = document.getElementById('badge-right');
     bRight.style.background = rightData.bgStyle;
-    bRight.style.border = `5px solid ${rightData.color}`;
+    bRight.style.border = `4px solid ${rightData.color}`;
     bRight.style.boxShadow = `0 0 50px ${rightData.shadow}`;
     bRight.innerHTML = `<img src="${rightData.logoUrl}" alt="${rightData.name}">`; // 주소 다이렉트 바인딩
     if(rightData.hasBg) bRight.classList.add('has-bg');

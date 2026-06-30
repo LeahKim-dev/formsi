@@ -169,7 +169,11 @@
     letter-spacing: -0.02em; line-height: 1;
   }
   .game-num-sub { font-size: 24px; color: var(--muted); }
-
+  .game-num-display .set-text {
+    font-size: 0.65em;
+    margin-left: 2px;
+    font-weight: 500;
+  }
   .time-adjust {
     display: flex; align-items: center; gap: 10px; margin-top: 6px;
   }
@@ -340,7 +344,7 @@
     </div>
     <div class="timer-box">
       <div class="box-label">현재 게임</div>
-      <div class="game-num-display" id="game-num">1</div>
+      <div class="game-num-display" id="game-num">1<span class="set-text">세트</span></div>
       <div class="game-num-sub">Game <span id="game-num-sub">1</span> of 5</div>
     </div>
   </div>
@@ -392,11 +396,11 @@
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/t1_logo.svg",
         winnerImgUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/t1win.jpg",
         hasBg: true,
-        color: "#C8102E", 
-        bgStyle: "#ffffff",
+        color: "#aa0025", 
+        bgStyle: "#111111",
         shadow: "rgba(200,16,46,0.4)",
-        confetti: ['#C8102E','#ffffff','#ff6b6b']
-      }
+        confetti: ['#aa0025','#ff6b6b','#ffffff','#f7e68a65']
+      },
     };
 
   let scoreLeft = 0, scoreRight = 0;
@@ -491,7 +495,7 @@
     }
     
     const nextGame = Math.min(scoreLeft + scoreRight + 1, 5);
-    document.getElementById('game-num').textContent = nextGame;
+    document.getElementById('game-num').innerHTML = nextGame + '<span class="set-text">세트</span>';
     document.getElementById('game-num-sub').textContent = nextGame;
     checkWinner();
   }
