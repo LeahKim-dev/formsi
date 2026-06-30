@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="page-title">MSI 2026 대시보드</title>
+<title id="page-title">MSI 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
@@ -31,44 +31,6 @@
     padding: 2rem 1.5rem;
   }
 
-  /* 관리자 전용 대진표 변경 컨트롤 바 */
-  .admin-bar {
-    width: 100%;
-    max-width: 1060px;
-    background: rgba(58, 122, 255, 0.1);
-    border: 1px solid rgba(58, 122, 255, 0.3);
-    border-radius: 16px;
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 1.5rem;
-  }
-  .admin-bar select {
-    background: var(--surface);
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 8px 16px;
-    font-size: 18px;
-    border-radius: 8px;
-    outline: none;
-    cursor: pointer;
-  }
-  .admin-bar span { font-weight: bold; color: var(--muted); }
-  .btn-change-match {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 8px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  .btn-change-match:hover { background: #2a6aef; }
-
   /* TOP BAR */
   .top-bar {
     width: 100%;
@@ -87,6 +49,26 @@
     border-radius: 24px;
     padding: 8px 22px;
   }
+  
+  /* 대진표 버튼 스타일 */
+  .btn-bracket-toggle {
+    background: rgba(58, 122, 255, 0.15);
+    border: 1px solid rgba(58, 122, 255, 0.4);
+    border-radius: 20px;
+    color: var(--accent);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-right: auto;
+    margin-left: 1.5rem;
+  }
+  .btn-bracket-toggle:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
   .real-clock {
     font-size: 26px;
     color: var(--muted);
@@ -122,16 +104,9 @@
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
-    transition: all 0.3s ease; /* 색상 변경 시 부드럽게 */
   }
-  .team-badge img {
-    width: 100%; height: 100%;
-    object-fit: contain;
-  }
-  .team-badge.has-bg img {
-    object-fit: contain; 
-    padding: 8px;
-  }
+  .team-badge img { width: 100%; height: 100%; object-fit: contain; }
+  .team-badge.has-bg img { object-fit: contain; padding: 8px; }
 
   .team-name { font-size: 38px; font-weight: 700; }
   .team-region { font-size: 16px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
@@ -212,21 +187,33 @@
 
   .time-adjust { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
   .time-input {
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 10px; color: var(--text); font-size: 22px;
-    font-variant-numeric: tabular-nums; padding: 8px 14px; width: 88px; text-align: center; outline: none;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    color: var(--text); font-size: 22px;
+    font-variant-numeric: tabular-nums;
+    padding: 8px 14px; width: 88px; text-align: center; outline: none;
   }
   .time-input:focus { border-color: var(--accent); }
   .time-sep { color: var(--muted); font-size: 24px; }
   .btn-set-time {
-    background: rgba(58,122,255,0.18); border: 1px solid rgba(58,122,255,0.35);
-    border-radius: 10px; color: var(--accent); font-size: 18px; padding: 8px 20px; cursor: pointer; transition: background 0.15s; font-weight: 500;
+    background: rgba(58,122,255,0.18);
+    border: 1px solid rgba(58,122,255,0.35);
+    border-radius: 10px; color: var(--accent);
+    font-size: 18px; padding: 8px 20px;
+    cursor: pointer; transition: background 0.15s;
+    font-weight: 500;
   }
   .btn-set-time:hover { background: rgba(58,122,255,0.3); }
 
   .timer-btns { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
   .btn-timer {
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: var(--text); font-size: 18px; padding: 12px 24px; cursor: pointer; transition: background 0.15s; font-weight: 500;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px; color: var(--text);
+    font-size: 18px; padding: 12px 24px;
+    cursor: pointer; transition: background 0.15s;
+    font-weight: 500;
   }
   .btn-timer:hover { background: rgba(255,255,255,0.12); }
   .btn-timer.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
@@ -234,43 +221,82 @@
   .btn-timer:active { transform: scale(0.96); }
 
   /* FOOTER */
-  .footer { padding: 1.5rem 3.5rem; display: flex; align-items: center; justify-content: space-between; }
+  .footer {
+    padding: 1.5rem 3.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
   .footer-note { font-size: 22px; color: var(--muted); font-weight: 500; }
   .btn-reset {
-    background: transparent; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; color: var(--muted); font-size: 18px; padding: 10px 22px; cursor: pointer; transition: all 0.15s; font-weight: 500;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px; color: var(--muted);
+    font-size: 18px; padding: 10px 22px;
+    cursor: pointer; transition: all 0.15s;
+    font-weight: 500;
   }
   .btn-reset:hover { color: var(--text); border-color: rgba(255,255,255,0.3); }
 
   /* WINNER OVERLAY */
   .winner-overlay {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 100; align-items: center; justify-content: center; flex-direction: column; gap: 2rem;
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 100;
+    align-items: center; justify-content: center;
+    flex-direction: column; gap: 2rem;
   }
   .winner-overlay.show { display: flex; animation: fadeIn 0.4s ease; }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   .winner-text-big {
-    font-size: 120px; font-weight: 800; color: #fff; text-shadow: 0 4px 50px rgba(0,0,0,0.8); letter-spacing: -0.02em; animation: zoomIn 0.4s ease; z-index: 1001; /* 이미지 위로 띄우기 */
+    font-size: 96px; font-weight: 800; color: #fff;
+    text-shadow: 0 4px 50px rgba(0,0,0,0.8);
+    letter-spacing: -0.02em;
+    animation: zoomIn 0.4s ease;
   }
+
+  /* 🗺️ BRACKET OVERLAY (대진표 팝업창 스타일) */
+  .bracket-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 200; /* 폭죽보다 위에 뜨도록 설정 */
+    align-items: center; justify-content: center;
+  }
+  .bracket-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+  
+  .bracket-container {
+    position: relative;
+    max-width: 90%; max-height: 85%;
+    background: #111116;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.7);
+    display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  }
+  .bracket-img {
+    max-width: 100%; max-height: 70vh;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+  .btn-bracket-close {
+    position: absolute; top: 15px; right: 20px;
+    background: transparent; border: none;
+    color: var(--muted); font-size: 32px; cursor: pointer;
+    transition: color 0.2s;
+  }
+  .btn-bracket-close:hover { color: #fff; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes zoomIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 </style>
 </head>
 <body>
 
-<div class="admin-bar">
-  <span>매치 변경 컨트롤러:</span>
-  <select id="admin-team-left">
-    <option value="t1">T1</option>
-    <option value="kc">KC</option>
-    <option value="tlaw">TLAW</option>
-    <option value="dcg">DCG</option>
-  </select>
-  <span>VS</span>
-  <select id="admin-team-right">
-    <option value="kc">KC</option>
-    <option value="t1">T1</option>
-    <option value="tlaw">TLAW</option>
-    <option value="dcg" selected>DCG</option>
-  </select>
-  <button class="btn-change-match" onclick="changeMatchTeams()">적용하기 (전체 실시간 동기화)</button>
+<div class="bracket-overlay" id="bracket-overlay" onclick="closeBracketModal(event)">
+  <div class="bracket-container">
+    <button class="btn-bracket-close" onclick="toggleBracketModal()">×</button>
+    <img src="" alt="대진표" class="bracket-img" id="bracket-modal-img">
+  </div>
 </div>
 
 <div class="winner-overlay" id="winner-overlay">
@@ -279,6 +305,7 @@
 
 <div class="top-bar">
   <div class="event-pill">MSI 2026 · 플레이-인</div>
+  <button class="btn-bracket-toggle" onclick="toggleBracketModal()">🗺️ 대진표 보기</button>
   <div class="real-clock">KST&nbsp;<span id="realtime">--:--:--</span></div>
 </div>
 
@@ -340,13 +367,13 @@
 
   <div class="footer">
     <div class="footer-note" id="winner-text"></div>
-    <button class="btn-reset" onclick="resetAll()">매치 전면 초기화</button>
+    <button class="btn-reset" onclick="resetAll()">전체 초기화</button>
   </div>
 </div>
 
 <script>
   // ==========================================
-  // Firebase 설정 (반드시 본인 설정으로 수정하세요!)
+  // 1. Firebase 설정 (보안규칙 true 상태인지 확인하세요!)
   // ==========================================
   const firebaseConfig = {
     apiKey: "AIzaSyAHVZlxDjVQBrhkeux7w1yK6s3R3Zq3_cM",
@@ -356,51 +383,72 @@
     storageBucket: "lolesports-watchparty.firebasestorage.app",
     messagingSenderId: "88622809180",
     appId: "1:88622809180:web:c30ed07de33efb691fa699",
+    measurementId: "G-729RP8H0E8" 
   };
 
   firebase.initializeApp(firebaseConfig);
   const database = firebase.database();
+  
+  if (typeof firebase.analytics === 'function') {
+    firebase.analytics();
+  }
+
+
+  // 대진표
+  const bracketImgUrl = "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/schedule.png"; 
 
   // ==========================================
-  // 데이터 마스터 사전 (팀 정보 통합 관리)
+  // 2. 오늘의 경기 팀 설정 변수
   // ==========================================
+  const teamLeft = 'tlaw';
+  const teamRight = 'dcg';
+  
   const dbTeams = {
       kc: {
-        name: "KC", region: "LEC · Europe",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/kc_logo.svg?v=1", 
-        hasBg: true, color: "#00A3E0", bgStyle: "#ffffff", shadow: "rgba(0,163,224,0.35)",
-        confetti: ['#00A3E0','#ffffff','#0A162B'],
-        winnerImgUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/kc_winner.png?v=1" 
+        name: "KC",
+        region: "LEC · Europe",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/kc_logo.svg", 
+        hasBg: true, 
+        color: "#00A3E0", 
+        bgStyle: "#ffffff",
+        shadow: "rgba(0,163,224,0.35)",
+        confetti: ['#00A3E0','#ffffff','#0A162B']
       },
       dcg: {
-        name: "DCG", region: "LCP · PCS",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/dcg_logo.webp?v=1", 
-        hasBg: true, color: "#3a7aff", bgStyle: "#ffffff", shadow: "rgba(58,122,255,0.25)",
-        confetti: ['#3a7aff','#ffffff','#111116'],
-        winnerImgUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/dcg_winner.png?v=1" 
+        name: "DCG",
+        region: "LCP · PCS",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/dcg_logo.webp", 
+        hasBg: true,
+        color: "#3a7aff", 
+        bgStyle: "#ffffff",
+        shadow: "rgba(58,122,255,0.25)",
+        confetti: ['#3a7aff','#ffffff','#111116']
       },
       tlaw: {
-        name: "TLAW", region: "LCS · Americas",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/tlaw_logo.webp?v=1", 
-        hasBg: true, color: "#1d2d50", bgStyle: "#ffffff", shadow: "rgba(29,45,80,0.3)",
-        confetti: ['#1d2d50','#C9A84C','#ffffff'],
-        winnerImgUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/tlaw_winner.png?v=1" 
+        name: "TLAW",
+        region: "LCS · Americas",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/tlaw_logo.webp", 
+        hasBg: true,
+        color: "#1d2d50", 
+        bgStyle: "#ffffff",
+        shadow: "rgba(29,45,80,0.3)",
+        confetti: ['#1d2d50','#C9A84C','#ffffff']
       },
       t1: {
-        name: "T1", region: "LCK · Korea",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/t1_logo.svg?v=1", 
-        hasBg: true, color: "#C8102E", bgStyle: "#ffffff", shadow: "rgba(200,16,46,0.4)",
-        confetti: ['#C8102E','#ffffff','#ff6b6b'],
-        winnerImgUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/t1_winner.png?v=1" 
+        name: "T1",
+        region: "LCK · Korea",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/t1_logo.svg", 
+        hasBg: true,
+        color: "#C8102E", 
+        bgStyle: "#ffffff",
+        shadow: "rgba(200,16,46,0.4)",
+        confetti: ['#C8102E','#ffffff','#ff6b6b']
       }
     };
 
   let timerInterval = null;
 
-  // ⭐ 핵심: 팀 대진 정보도 실시간 DB 상태(State)에 포함시킵니다!
   let remoteState = {
-    teamLeftKey: 't1',  // 초기 기본값
-    teamRightKey: 'dcg', // 초기 기본값
     scoreLeft: 0,
     scoreRight: 0,
     timerSec: 0,
@@ -408,15 +456,58 @@
     winnerTriggered: false
   };
 
+  function initLayout() {
+    const leftData = dbTeams[teamLeft];
+    const rightData = dbTeams[teamRight];
+    if(!leftData || !rightData) return alert("팀 설정 매칭 변수 오류!");
+
+    document.getElementById('page-title').textContent = `${leftData.name} vs ${rightData.name} — MSI 2026`;
+    document.getElementById('name-left').textContent = leftData.name;
+    document.getElementById('region-left').textContent = leftData.region;
+    const bLeft = document.getElementById('badge-left');
+    bLeft.style.background = leftData.bgStyle;
+    bLeft.style.border = `4px solid ${leftData.color}`;
+    bLeft.style.boxShadow = `0 0 50px ${leftData.shadow}`;
+    bLeft.innerHTML = `<img src="${leftData.logoUrl}" alt="${leftData.name}">`;
+    if(leftData.hasBg) bLeft.classList.add('has-bg');
+
+    document.getElementById('name-right').textContent = rightData.name;
+    document.getElementById('region-right').textContent = rightData.region;
+    const bRight = document.getElementById('badge-right');
+    bRight.style.background = rightData.bgStyle;
+    bRight.style.border = `4px solid ${rightData.color}`;
+    bRight.style.boxShadow = `0 0 50px ${rightData.shadow}`;
+    bRight.innerHTML = `<img src="${rightData.logoUrl}" alt="${rightData.name}">`;
+    if(rightData.hasBg) bRight.classList.add('has-bg');
+    
+    // 대진표 이미지 소스 사전 맵핑
+    document.getElementById('bracket-modal-img').src = bracketImgUrl;
+  }
+  initLayout();
+
   function pad(n) { return String(n).padStart(2,'0'); }
 
   function tick() {
     const now = new Date();
-    document.getElementById('realtime').textContent = pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
+    document.getElementById('realtime').textContent =
+      pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
   }
   tick(); setInterval(tick, 1000);
 
-  // Firebase 실시간 데이터 수신부
+  // 대진표 모달 창 온오프 토글 스위치
+  function toggleBracketModal() {
+    const overlay = document.getElementById('bracket-overlay');
+    overlay.classList.toggle('show');
+  }
+
+  // 뒷배경 어두운 여백을 터치해도 창이 닫히도록 예외 처리
+  function closeBracketModal(e) {
+    if(e.target.id === 'bracket-overlay') {
+      toggleBracketModal();
+    }
+  }
+
+  // Firebase 실시간 리스너 수신부
   database.ref('msi_match_state').on('value', (snapshot) => {
     const data = snapshot.val();
     if (data) {
@@ -433,49 +524,16 @@
     database.ref('msi_match_state').set(remoteState);
   }
 
-  // ⭐ 화면(UI) 전체를 DB 기반으로 다시 그리는 함수
   function updateUI() {
-    // 1. 실시간 대진표(팀 로고, 색상, 이름) 렌더링
-    const leftData = dbTeams[remoteState.teamLeftKey];
-    const rightData = dbTeams[remoteState.teamRightKey];
-
-    if (leftData && rightData) {
-      document.getElementById('page-title').textContent = `${leftData.name} vs ${rightData.name} — MSI 2026`;
-      
-      document.getElementById('name-left').textContent = leftData.name;
-      document.getElementById('region-left').textContent = leftData.region;
-      const bLeft = document.getElementById('badge-left');
-      bLeft.style.background = leftData.bgStyle;
-      bLeft.style.border = `4px solid ${leftData.color}`;
-      bLeft.style.boxShadow = `0 0 50px ${leftData.shadow}`;
-      bLeft.innerHTML = `<img src="${leftData.logoUrl}" alt="${leftData.name}">`;
-      if(leftData.hasBg) bLeft.classList.add('has-bg'); else bLeft.classList.remove('has-bg');
-
-      document.getElementById('name-right').textContent = rightData.name;
-      document.getElementById('region-right').textContent = rightData.region;
-      const bRight = document.getElementById('badge-right');
-      bRight.style.background = rightData.bgStyle;
-      bRight.style.border = `4px solid ${rightData.color}`;
-      bRight.style.boxShadow = `0 0 50px ${rightData.shadow}`;
-      bRight.innerHTML = `<img src="${rightData.logoUrl}" alt="${rightData.name}">`;
-      if(rightData.hasBg) bRight.classList.add('has-bg'); else bRight.classList.remove('has-bg');
-
-      // 상단 드롭다운 UI 상태도 현재 DB와 일치시킴
-      document.getElementById('admin-team-left').value = remoteState.teamLeftKey;
-      document.getElementById('admin-team-right').value = remoteState.teamRightKey;
-    }
-
-    // 2. 점수 렌더링
     document.getElementById('set-left').textContent = remoteState.scoreLeft;
     document.getElementById('set-right').textContent = remoteState.scoreRight;
 
-    // 3. 판수 렌더링
     const nextGame = Math.min(remoteState.scoreLeft + remoteState.scoreRight + 1, 5);
     document.getElementById('game-num').textContent = nextGame;
     document.getElementById('game-num-sub').textContent = nextGame;
 
-    // 4. 타이머 렌더링
-    document.getElementById('game-timer').textContent = pad(Math.floor(remoteState.timerSec/60)) + ':' + pad(remoteState.timerSec%60);
+    document.getElementById('game-timer').textContent =
+      pad(Math.floor(remoteState.timerSec/60)) + ':' + pad(remoteState.timerSec%60);
 
     const btnStart = document.getElementById('btn-start');
     if (remoteState.timerRunning) {
@@ -483,7 +541,8 @@
       if (!timerInterval) {
         timerInterval = setInterval(() => {
           remoteState.timerSec++;
-          document.getElementById('game-timer').textContent = pad(Math.floor(remoteState.timerSec/60)) + ':' + pad(remoteState.timerSec%60);
+          document.getElementById('game-timer').textContent =
+            pad(Math.floor(remoteState.timerSec/60)) + ':' + pad(remoteState.timerSec%60);
         }, 1000);
       }
     } else {
@@ -493,38 +552,7 @@
         timerInterval = null;
       }
     }
-    
     checkWinner();
-  }
-
-  // ⭐ 관리자가 대진표를 변경하고 DB에 쏘는 함수
-  function changeMatchTeams() {
-    const newLeft = document.getElementById('admin-team-left').value;
-    const newRight = document.getElementById('admin-team-right').value;
-
-    if (newLeft === newRight) {
-      return alert("같은 팀끼리는 경기를 진행할 수 없습니다!");
-    }
-
-    if (!confirm('경기를 변경하시겠습니까? (점수와 타이머가 초기화됩니다)')) return;
-
-    // Firebase 데이터 업데이트
-    remoteState.teamLeftKey = newLeft;
-    remoteState.teamRightKey = newRight;
-    remoteState.scoreLeft = 0;
-    remoteState.scoreRight = 0;
-    remoteState.timerSec = 0;
-    remoteState.timerRunning = false;
-    remoteState.winnerTriggered = false;
-    
-    if (timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-    document.getElementById('input-min').value = 0;
-    document.getElementById('input-sec').value = 0;
-    
-    saveToDB(); // 이 한방으로 시청자 화면이 새로고침 없이 싹 바뀝니다!
   }
 
   function popScore(id) {
@@ -575,86 +603,41 @@
 
   function checkWinner() {
     const el = document.getElementById('winner-text');
-    const lTeam = dbTeams[remoteState.teamLeftKey];
-    const rTeam = dbTeams[remoteState.teamRightKey];
-
     if (remoteState.scoreLeft === 3) {
-      el.textContent = `🏆 ${lTeam.name} 승리!`;
+      el.textContent = `🏆 ${dbTeams[teamLeft].name} 승리!`;
       if (!remoteState.winnerTriggered) {
         remoteState.winnerTriggered = true;
-        showWinner(lTeam.name, lTeam.confetti, lTeam.winnerImgUrl);
+        showWinner(dbTeams[teamLeft].name, dbTeams[teamLeft].confetti, dbTeams[teamLeft].winnerImgUrl);
       }
     } else if (remoteState.scoreRight === 3) {
-      el.textContent = `🏆 ${rTeam.name} 승리!`;
+      el.textContent = `🏆 ${dbTeams[teamRight].name} 승리!`;
       if (!remoteState.winnerTriggered) {
         remoteState.winnerTriggered = true;
-        showWinner(rTeam.name, rTeam.confetti, rTeam.winnerImgUrl);
+        showWinner(dbTeams[teamRight].name, dbTeams[teamRight].confetti, dbTeams[teamRight].winnerImgUrl);
       }
     } else {
       el.textContent = '';
     }
   }
 
-  function showWinner(name, colors, winnerCustomImg) {
+  function showWinner(name, colors) {
     const overlay = document.getElementById('winner-overlay');
     const txt = document.getElementById('winner-text-big');
-    
-    let img = document.getElementById('winner-custom-img');
-    if (!img) {
-      img = document.createElement('img');
-      img.id = 'winner-custom-img';
-      img.style.width = '960px';
-      img.style.maxHeight = '600px';
-      img.style.objectFit = 'contain';
-      img.style.borderRadius = '16px';
-      img.style.boxShadow = '0 20px 80px rgba(0,0,0,0.6)';
-      overlay.insertBefore(img, txt);
-    }
-
-    if (winnerCustomImg) {
-      img.src = winnerCustomImg;
-      img.style.display = 'block';
-    } else {
-      img.style.display = 'none';
-    }
-
-    if (name === 'T1') {
-      txt.textContent = '🏆 T1 브래킷 스테이지 진출!';
-    } else {
-      txt.textContent = '🏆 ' + name + ' WIN!';
-    }
-    
+    txt.textContent = '🏆 ' + name + ' WIN!';
     overlay.classList.add('show');
 
-    const duration = 10000;
-    const animationEnd = Date.now() + duration;
+    const end = Date.now() + 4000;
+    (function frame() {
+      confetti({ particleCount: 6, angle: 60, spread: 55, origin:{x:0}, colors });
+      confetti({ particleCount: 6, angle: 120, spread: 55, origin:{x:1}, colors });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
 
-    function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-
-    const cannonInterval = setInterval(function() {
-      if (Date.now() > animationEnd) return clearInterval(cannonInterval);
-      confetti({ particleCount: 100, angle: 60, spread: 75, startVelocity: 65, gravity: 0.85, ticks: 300, origin: { x: -0.1, y: 1 }, colors: colors, zIndex: 99999 });
-      confetti({ particleCount: 100, angle: 120, spread: 75, startVelocity: 65, gravity: 0.85, ticks: 300, origin: { x: 1.1, y: 1 }, colors: colors, zIndex: 99999 });
-    }, 1200);
-
-    let frameId;
-    function frame() {
-      if (Date.now() > animationEnd) return;
-      if (Math.random() < 0.04) {
-        confetti({ particleCount: 50, startVelocity: 25, spread: 360, ticks: 200, gravity: 0.6, zIndex: 99999, colors: colors, origin: { x: randomInRange(0.1, 0.9), y: randomInRange(0.1, 0.4) } });
-      }
-      if (Math.random() < 0.15) {
-        confetti({ particleCount: 2, startVelocity: 0, ticks: 400, gravity: 0.3, scale: 1.2, origin: { x: Math.random(), y: -0.1 }, colors: ['#FFD700', '#ffffff'], drift: randomInRange(-0.8, 0.8), zIndex: 99999 });
-      }
-      frameId = requestAnimationFrame(frame);
-    }
-    frame();
-
-    setTimeout(() => { overlay.classList.remove('show'); cancelAnimationFrame(frameId); }, 10500);
+    setTimeout(()=>{ overlay.classList.remove('show'); }, 4500);
   }
 
   function resetAll() {
-    if (!confirm('매치를 전면 초기화하시겠습니까? (점수, 타이머)')) return;
+    if (!confirm('전체 초기화하시겠습니까?')) return;
     remoteState.scoreLeft = 0;
     remoteState.scoreRight = 0;
     remoteState.timerSec = 0;
