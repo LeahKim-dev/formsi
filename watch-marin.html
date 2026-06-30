@@ -250,11 +250,11 @@
   @keyframes zoomInCustom { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
   #winner-custom-img {
-    width: 960px;
-    max-height: 600px;
+    width: 1080px;
+    max-height: auto;
     object-fit: contain;
-    border-radius: 24px;
-    box-shadow: 0 0 100px rgba(235, 16, 46, 0.5); /* 네온 백라이트 강화 */
+    border-radius: 4px;
+    box-shadow: 0 0 200px rgba(235, 16, 46, 0.5); /* 네온 백라이트 강화 */
     display: block;
   }
 
@@ -551,9 +551,6 @@
       function frame() {
         if (Date.now() > animationEnd) return;
 
-        // 화면 주사율에 맞춰 실행되므로 setInterval보다 압도적으로 부드러움
-        // 매 프레임마다 터지면 렉걸리므로, 확률(약 3%~10%)을 주어 자연스럽게 터지게 유도
-        
         // 사방에서 터지는 랜덤 불꽃
         if (Math.random() < 0.04) {
           confetti({
