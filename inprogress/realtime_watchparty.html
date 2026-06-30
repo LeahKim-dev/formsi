@@ -49,6 +49,26 @@
     border-radius: 24px;
     padding: 8px 22px;
   }
+  
+  /* 대진표 버튼 스타일 */
+  .btn-bracket-toggle {
+    background: rgba(58, 122, 255, 0.15);
+    border: 1px solid rgba(58, 122, 255, 0.4);
+    border-radius: 20px;
+    color: var(--accent);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-right: auto;
+    margin-left: 1.5rem;
+  }
+  .btn-bracket-toggle:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
   .real-clock {
     font-size: 26px;
     color: var(--muted);
@@ -85,14 +105,8 @@
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
   }
-  .team-badge img {
-    width: 100%; height: 100%;
-    object-fit: contain;
-  }
-  .team-badge.has-bg img {
-    object-fit: contain; 
-    padding: 8px;
-  }
+  .team-badge img { width: 100%; height: 100%; object-fit: contain; }
+  .team-badge.has-bg img { object-fit: contain; padding: 8px; }
 
   .team-name { font-size: 38px; font-weight: 700; }
   .team-region { font-size: 16px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
@@ -171,26 +185,21 @@
   }
   .game-num-sub { font-size: 24px; color: var(--muted); }
 
-  .time-adjust {
-    display: flex; align-items: center; gap: 10px; margin-top: 6px;
-  }
+  .time-adjust { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
   .time-input {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 10px;
-    color: var(--text);
-    font-size: 22px;
+    color: var(--text); font-size: 22px;
     font-variant-numeric: tabular-nums;
-    padding: 8px 14px;
-    width: 88px; text-align: center; outline: none;
+    padding: 8px 14px; width: 88px; text-align: center; outline: none;
   }
   .time-input:focus { border-color: var(--accent); }
   .time-sep { color: var(--muted); font-size: 24px; }
   .btn-set-time {
     background: rgba(58,122,255,0.18);
     border: 1px solid rgba(58,122,255,0.35);
-    border-radius: 10px;
-    color: var(--accent);
+    border-radius: 10px; color: var(--accent);
     font-size: 18px; padding: 8px 20px;
     cursor: pointer; transition: background 0.15s;
     font-weight: 500;
@@ -207,9 +216,7 @@
     font-weight: 500;
   }
   .btn-timer:hover { background: rgba(255,255,255,0.12); }
-  .btn-timer.primary {
-    background: var(--accent); border-color: var(--accent); color: #fff;
-  }
+  .btn-timer.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
   .btn-timer.primary:hover { background: #2a6aef; }
   .btn-timer:active { transform: scale(0.96); }
 
@@ -239,17 +246,58 @@
     flex-direction: column; gap: 2rem;
   }
   .winner-overlay.show { display: flex; animation: fadeIn 0.4s ease; }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   .winner-text-big {
-    font-size: 120px; font-weight: 800; color: #fff;
+    font-size: 96px; font-weight: 800; color: #fff;
     text-shadow: 0 4px 50px rgba(0,0,0,0.8);
     letter-spacing: -0.02em;
     animation: zoomIn 0.4s ease;
   }
+
+  /* 🗺️ BRACKET OVERLAY (대진표 팝업창 스타일) */
+  .bracket-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 200; /* 폭죽보다 위에 뜨도록 설정 */
+    align-items: center; justify-content: center;
+  }
+  .bracket-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+  
+  .bracket-container {
+    position: relative;
+    max-width: 90%; max-height: 85%;
+    background: #111116;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.7);
+    display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  }
+  .bracket-img {
+    max-width: 100%; max-height: 70vh;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+  .btn-bracket-close {
+    position: absolute; top: 15px; right: 20px;
+    background: transparent; border: none;
+    color: var(--muted); font-size: 32px; cursor: pointer;
+    transition: color 0.2s;
+  }
+  .btn-bracket-close:hover { color: #fff; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes zoomIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 </style>
 </head>
 <body>
+
+<div class="bracket-overlay" id="bracket-overlay" onclick="closeBracketModal(event)">
+  <div class="bracket-container">
+    <button class="btn-bracket-close" onclick="toggleBracketModal()">×</button>
+    <img src="" alt="대진표" class="bracket-img" id="bracket-modal-img">
+  </div>
+</div>
 
 <div class="winner-overlay" id="winner-overlay">
   <div class="winner-text-big" id="winner-text-big"></div>
@@ -257,6 +305,7 @@
 
 <div class="top-bar">
   <div class="event-pill">MSI 2026 · 플레이-인</div>
+  <button class="btn-bracket-toggle" onclick="toggleBracketModal()">🗺️ 대진표 보기</button>
   <div class="real-clock">KST&nbsp;<span id="realtime">--:--:--</span></div>
 </div>
 
@@ -324,27 +373,30 @@
 
 <script>
   // ==========================================
-  // 1. Firebase 설정 (제공해주신 Key값 연동 완료)
+  // 1. Firebase 설정 (보안규칙 true 상태인지 확인하세요!)
   // ==========================================
   const firebaseConfig = {
     apiKey: "AIzaSyAHVZlxDjVQBrhkeux7w1yK6s3R3Zq3_cM",
     authDomain: "lolesports-watchparty.firebaseapp.com",
+    databaseURL: "https://lolesports-watchparty-default-rtdb.firebaseio.com", 
     projectId: "lolesports-watchparty",
     storageBucket: "lolesports-watchparty.firebasestorage.app",
     messagingSenderId: "88622809180",
     appId: "1:88622809180:web:c30ed07de33efb691fa699",
-    // 구글 애널리틱스 활성화 상태를 위한 ID 유지
     measurementId: "G-729RP8H0E8" 
   };
 
-  // Firebase 및 데이터베이스 호환 구동 방식 적용
   firebase.initializeApp(firebaseConfig);
   const database = firebase.database();
   
-  // 구글 애널리틱스 분석 가동
   if (typeof firebase.analytics === 'function') {
     firebase.analytics();
   }
+
+  // ==========================================
+  // ⭐ [여기를 변경하세요] 대진표 이미지 주소 설정
+  // ==========================================
+  const bracketImgUrl = "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/schedule.png"; 
 
   // ==========================================
   // 2. 오늘의 경기 팀 설정 변수
@@ -352,7 +404,6 @@
   const teamLeft = 'tlaw';
   const teamRight = 'dcg';
   
-  // 데이터 마스터 사전 (기존 데이터 유지)
   const dbTeams = {
       kc: {
         name: "KC",
@@ -398,7 +449,6 @@
 
   let timerInterval = null;
 
-  // 실시간 전역 상태 객체
   let remoteState = {
     scoreLeft: 0,
     scoreRight: 0,
@@ -407,7 +457,6 @@
     winnerTriggered: false
   };
 
-  // 레이아웃 초기화 함수
   function initLayout() {
     const leftData = dbTeams[teamLeft];
     const rightData = dbTeams[teamRight];
@@ -431,18 +480,33 @@
     bRight.style.boxShadow = `0 0 50px ${rightData.shadow}`;
     bRight.innerHTML = `<img src="${rightData.logoUrl}" alt="${rightData.name}">`;
     if(rightData.hasBg) bRight.classList.add('has-bg');
+    
+    // 대진표 이미지 소스 사전 맵핑
+    document.getElementById('bracket-modal-img').src = bracketImgUrl;
   }
   initLayout();
 
   function pad(n) { return String(n).padStart(2,'0'); }
 
-  // 실제 시계 가동
   function tick() {
     const now = new Date();
     document.getElementById('realtime').textContent =
       pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
   }
   tick(); setInterval(tick, 1000);
+
+  // 대진표 모달 창 온오프 토글 스위치
+  function toggleBracketModal() {
+    const overlay = document.getElementById('bracket-overlay');
+    overlay.classList.toggle('show');
+  }
+
+  // 뒷배경 어두운 여백을 터치해도 창이 닫히도록 예외 처리
+  function closeBracketModal(e) {
+    if(e.target.id === 'bracket-overlay') {
+      toggleBracketModal();
+    }
+  }
 
   // Firebase 실시간 리스너 수신부
   database.ref('msi_match_state').on('value', (snapshot) => {
@@ -499,7 +563,6 @@
     el.classList.add('pop');
   }
 
-  // 조작부 버튼 이벤트 함수들
   function changeScore(side, delta) {
     if (side === 'left') {
       remoteState.scoreLeft = Math.max(0, Math.min(3, remoteState.scoreLeft + delta));
@@ -539,14 +602,12 @@
     saveToDB();
   }
 
-// 위너 체크 및 데이터 바인딩 인터페이스
   function checkWinner() {
     const el = document.getElementById('winner-text');
     if (remoteState.scoreLeft === 3) {
       el.textContent = `🏆 ${dbTeams[teamLeft].name} 승리!`;
       if (!remoteState.winnerTriggered) {
         remoteState.winnerTriggered = true;
-        // 이름, 폭죽색상, 그리고 우승 팝업 이미지 주소를 정확히 넘겨줍니다.
         showWinner(dbTeams[teamLeft].name, dbTeams[teamLeft].confetti, dbTeams[teamLeft].winnerImgUrl);
       }
     } else if (remoteState.scoreRight === 3) {
@@ -560,15 +621,11 @@
     }
   }
 
-  // 웅장하고 스무스한 60FPS 대형 축포 + 불꽃놀이 연출 함수
   function showWinner(name, colors, winnerCustomImg) {
     const overlay = document.getElementById('winner-overlay');
     const txt = document.getElementById('winner-text-big');
     
-    // HTML에 이미지 태그를 동적으로 매칭하기 위해 엘리먼트 확인
     let img = document.getElementById('winner-custom-img');
-    
-    // 만약 HTML 내부에 이미지 태그가 없다면 오버레이 내부에 동적으로 생성해 줍니다.
     if (!img) {
       img = document.createElement('img');
       img.id = 'winner-custom-img';
@@ -577,11 +634,9 @@
       img.style.objectFit = 'contain';
       img.style.borderRadius = '16px';
       img.style.boxShadow = '0 20px 80px rgba(0,0,0,0.6)';
-      // 텍스트보다 위에 배치하기 위해 삽입
       overlay.insertBefore(img, txt);
     }
 
-    // 전용 우승 이미지가 존재하면 주소를 넣고 노출, 없으면 숨김
     if (winnerCustomImg) {
       img.src = winnerCustomImg;
       img.style.display = 'block';
@@ -589,7 +644,6 @@
       img.style.display = 'none';
     }
 
-    // T1 특별 대우 예외 처리 문구 바인딩
     if (name === 'T1') {
       txt.textContent = '🏆 T1 브래킷 스테이지 진출!';
     } else {
@@ -598,12 +652,11 @@
     
     overlay.classList.add('show');
 
-    const duration = 10000; // 10초 동안 대제전 연출 가동
+    const duration = 10000;
     const animationEnd = Date.now() + duration;
 
     function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
-    // 연출 1: 양옆 구석에서 뿜어져 나오는 대형 무대 분수 축포 (1.2초 주기)
     const cannonInterval = setInterval(function() {
       if (Date.now() > animationEnd) return clearInterval(cannonInterval);
 
@@ -617,12 +670,10 @@
       });
     }, 1200);
 
-    // 연출 2: 화면 사방에서 연쇄 폭발하는 구형 불꽃놀이 (requestAnimationFrame 최적화)
     let frameId;
     function frame() {
       if (Date.now() > animationEnd) return;
 
-      // 4% 확률로 사방 랜덤 좌표에서 원형 불꽃 버스트
       if (Math.random() < 0.04) {
         confetti({
           particleCount: 50, startVelocity: 25, spread: 360, ticks: 200, gravity: 0.6, zIndex: 99999,
@@ -631,7 +682,6 @@
         });
       }
 
-      // 15% 확률로 하늘에서 은은하게 떨어지는 금빛 가루
       if (Math.random() < 0.15) {
         confetti({
           particleCount: 2, startVelocity: 0, ticks: 400, gravity: 0.3, scale: 1.2,
@@ -646,7 +696,6 @@
     }
     frame();
 
-    // 10.5초 후 깔끔하게 정리 및 애니메이션 소멸
     setTimeout(() => { 
       overlay.classList.remove('show'); 
       cancelAnimationFrame(frameId);
