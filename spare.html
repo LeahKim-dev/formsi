@@ -170,7 +170,11 @@
     letter-spacing: -0.02em; line-height: 1;
   }
   .game-num-sub { font-size: 24px; color: var(--muted); }
-
+  .game-num-display .set-text {
+    font-size: 0.65em;
+    margin-left: 2px;
+    font-weight: 500;
+  }
   .time-adjust {
     display: flex; align-items: center; gap: 10px; margin-top: 6px;
   }
@@ -257,9 +261,18 @@
 
   /* 상단 탑바용 대진표 버튼 커스텀 스타일 */
   .btn-bracket-top {
-    margin: 0 !important; /* 불필요한 마진 제거 */
-    padding: 6px 14px;   /* 이벤트 필과 높이를 맞추기 위한 패딩 조절 */
-    font-size: 15px;
+    margin: 0 !important;
+    font-size: 24px;
+    font-family: inherit;
+    letter-spacing: 0 !important;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 8px 6px !important;
+    width: auto !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
 
   /* 대진표 고유 ID 모달 스타일 */
@@ -268,7 +281,7 @@
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.8);
-    z-index: 10000; /* 우승 팝업 등 다른 요소들과 겹치지 않게 최상위 레이어로 지정 */
+    z-index: 10000; 
     align-items: center;
     justify-content: center;
   }
@@ -289,7 +302,7 @@
 <div class="top-bar">
   <div class="event-wrapper" style="display: flex; align-items: center; gap: 10px;">
     <div class="event-pill">MSI 2026 · 브래킷 스테이지</div>
-    <button id="btn-bracket" class="btn-timer" onclick="openBracketModal()" style="margin: 0; padding: 6px 14px; font-size: 15px; cursor: pointer;">📅 대진표</button>
+    <button id="btn-bracket" class="btn-timer btn-bracket-top" onclick="openBracketModal()">📅</button>
   </div>
 
   <div class="real-clock">KST&nbsp;<span id="realtime">--:--:--</span></div>
@@ -357,7 +370,7 @@
     </div>
     <div class="timer-box">
       <div class="box-label">현재 게임</div>
-      <div class="game-num-display" id="game-num">1</div>
+      <div class="game-num-display" id="game-num">1<span class="set-text">세트</span></div>
       <div class="game-num-sub">Game <span id="game-num-sub">1</span> of 5</div>
     </div>
   </div>
@@ -597,7 +610,7 @@
     }
     
     const nextGame = Math.min(scoreLeft + scoreRight + 1, 5);
-    document.getElementById('game-num').textContent = nextGame;
+    document.getElementById('game-num').innerHTML = nextGame + '<span class="set-text">세트</span>';
     document.getElementById('game-num-sub').textContent = nextGame;
     checkWinner();
   }
