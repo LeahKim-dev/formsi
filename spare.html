@@ -16,7 +16,7 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
+  
   body {
     background: var(--bg);
     color: var(--text);
@@ -247,6 +247,37 @@
     animation: zoomIn 0.4s ease;
   }
   @keyframes zoomIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  /* 이벤트 필과 대진표 버튼을 가로로 정렬 */
+  .event-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 필과 버튼 사이의 간격 격차 */
+  }
+
+  /* 상단 탑바용 대진표 버튼 커스텀 스타일 */
+  .btn-bracket-top {
+    margin: 0 !important; /* 불필요한 마진 제거 */
+    padding: 6px 14px;   /* 이벤트 필과 높이를 맞추기 위한 패딩 조절 */
+    font-size: 15px;
+  }
+
+  /* 대진표 고유 ID 모달 스타일 */
+  #bracket-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10000; /* 우승 팝업 등 다른 요소들과 겹치지 않게 최상위 레이어로 지정 */
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 모달 활성화 클래스 */
+  #bracket-overlay.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+  }
 </style>
 </head>
 <body>
@@ -256,8 +287,19 @@
 </div>
 
 <div class="top-bar">
-  <div class="event-pill">MSI 2026 · 플레이-인</div>
+  <div class="event-wrapper" style="display: flex; align-items: center; gap: 10px;">
+    <div class="event-pill">MSI 2026 · 브래킷 스테이지</div>
+    <button id="btn-bracket" class="btn-timer" onclick="openBracketModal()" style="margin: 0; padding: 6px 14px; font-size: 15px; cursor: pointer;">📅 대진표</button>
+  </div>
+
   <div class="real-clock">KST&nbsp;<span id="realtime">--:--:--</span></div>
+</div>
+
+<div id="bracket-overlay" onclick="closeBracketModal()">
+  <div class="winner-container" onclick="event.stopPropagation()">
+    <img id="bracket-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/bracket.png" alt="대진표" style="max-width: 100%; max-height: 80vh; border-radius: 16px;">
+    <button class="btn-reset" onclick="closeBracketModal()" style="margin-top: 1rem; color: #fff; border-color: rgba(255,255,255,0.4);">닫기</button>
+  </div>
 </div>
 
 <div class="main-card">
@@ -333,7 +375,7 @@
   // 사용 가능한 키: 't1', 'furia', 'tsw', 'lyon', 'hle', 'g2', 'tes', 'blg'
   // ==========================================
   const teamLeft = 't1';
-  const teamRight = 'lyon';
+  const teamRight = 'blg';
   
   // ==========================================
   // 데이터 마스터 사전 (팀 정보 통합 관리)
@@ -355,17 +397,17 @@
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/dcg_logo.webp", 
         hasBg: true,
         color: "#3a7aff", 
-        bgStyle: "#ffffff",
+        bgStyle: "#fdfbfb",
         shadow: "rgba(58,122,255,0.25)",
         confetti: ['#3a7aff','#ffffff','#111116']
       },
       tlaw: {
         name: "TLAW",
-        region: "LCS · Americas",
+        region: "LCS · U.S.",
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/tlaw_logo.webp", 
         hasBg: true,
         color: "#1d2d50", 
-        bgStyle: "#ffffff",
+        bgStyle: "#fdfbfb",
         shadow: "rgba(29,45,80,0.3)",
         confetti: ['#1d2d50','#C9A84C','#ffffff']
       },
@@ -375,7 +417,7 @@
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/t1_logo.svg", 
         hasBg: true,
         color: "#C8102E", 
-        bgStyle: "#ffffff",
+        bgStyle: "#fdfbfb1",
         shadow: "rgba(200,16,46,0.4)",
         confetti: ['#C8102E','#ffffff','#ff6b6b']
       },
@@ -384,10 +426,10 @@
         region: "CBLOL · Brazil",
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/furia_logo.webp",
         hasBg: true,
-        color: "#00FF7F",
-        bgStyle: "#000000",
+        color: "#0f9b3d",
+        bgStyle: "#fdfbfb",
         shadow: "rgba(0,255,127,0.4)",
-        confetti: ['#000000', '#00FF7F', '#ffffff']
+        confetti: ['#ffd86e', '#87cd9e', '#ffffff']
       },
       tsw: {
         name: "TSW",
@@ -395,29 +437,29 @@
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/tsw_logo.webp",
         hasBg: true,
         color: "#FF8C00",
-        bgStyle: "#1a1a1a",
+        bgStyle: "#fdfbfb",
         shadow: "rgba(255,140,0,0.4)",
-        confetti: ['#1a1a1a', '#FF8C00', '#ffffff']
+        confetti: ['#fff4b4', '#FF8C00', '#ffffff']
       },
       lyon: {
         name: "LYON",
-        region: "LLA · Latam",
+        region: "LCS · Mexico",
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/lyon_logo.svg",
         hasBg: true,
-        color: "#D2B48C",
-        bgStyle: "#4a3c31",
+        color: "#c09d76",
+        bgStyle: "#111111",
         shadow: "rgba(210,180,140,0.4)",
-        confetti: ['#D2B48C', '#4a3c31', '#ffffff']
+        confetti: ['#c09d76', '#4a3c31', '#ffffff']
       },
       hle: {
         name: "HLE",
         region: "LCK · Korea",
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/hle_logo.svg",
         hasBg: true,
-        color: "#FF4500",
-        bgStyle: "#000000",
+        color: "#f06f25",
+        bgStyle: "#fdfbfb",
         shadow: "rgba(255,69,0,0.4)",
-        confetti: ['#FF4500', '#000000', '#ffffff']
+        confetti: ['#f06f25', '#bcbec1', '#ffffff']
       },
       g2: {
         name: "G2",
@@ -434,20 +476,20 @@
         region: "LPL · China",
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/tes_logo.webp",
         hasBg: true,
-        color: "#E60012",
-        bgStyle: "#ffffff",
+        color: "#fc312a",
+        bgStyle: "#fdfbfb",
         shadow: "rgba(230,0,18,0.4)",
-        confetti: ['#E60012', '#ffffff', '#000000']
+        confetti: ['#fc312a', '#ffffff', '#000000']
       },
       blg: {
         name: "BLG",
         region: "LPL · China",
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/blg_logo.svg",
         hasBg: true,
-        color: "#FF69B4",
-        bgStyle: "#00aaff",
+        color: "#F86F98",
+        bgStyle: "#fdfbfb",
         shadow: "rgba(255,105,180,0.4)",
-        confetti: ['#00aaff', '#FF69B4', '#ffffff']
+        confetti: ['#42D1F2', '#F86F98', '#ffffff']
       }
     
     };
@@ -471,7 +513,7 @@
     document.getElementById('region-left').textContent = leftData.region;
     const bLeft = document.getElementById('badge-left');
     bLeft.style.background = leftData.bgStyle;
-    bLeft.style.border = `4px solid ${leftData.color}`;
+    bLeft.style.border = `5px solid ${leftData.color}`;
     bLeft.style.boxShadow = `0 0 50px ${leftData.shadow}`;
     bLeft.innerHTML = `<img src="${leftData.logoUrl}" alt="${leftData.name}">`; // 주소 다이렉트 바인딩
     if(leftData.hasBg) bLeft.classList.add('has-bg');
@@ -481,7 +523,7 @@
     document.getElementById('region-right').textContent = rightData.region;
     const bRight = document.getElementById('badge-right');
     bRight.style.background = rightData.bgStyle;
-    bRight.style.border = `4px solid ${rightData.color}`;
+    bRight.style.border = `5px solid ${rightData.color}`;
     bRight.style.boxShadow = `0 0 50px ${rightData.shadow}`;
     bRight.innerHTML = `<img src="${rightData.logoUrl}" alt="${rightData.name}">`; // 주소 다이렉트 바인딩
     if(rightData.hasBg) bRight.classList.add('has-bg');
@@ -591,6 +633,21 @@
     setTimeout(()=>{ overlay.classList.remove('show'); }, 4500);
   }
 
+  // 대진표 모달 열기
+  function openBracketModal() {
+    const bracketOverlay = document.getElementById('bracket-overlay');
+    if (bracketOverlay) {
+      bracketOverlay.classList.add('show');
+    }
+  }
+
+  // 대진표 모달 닫기
+  function closeBracketModal() {
+    const bracketOverlay = document.getElementById('bracket-overlay');
+    if (bracketOverlay) {
+      bracketOverlay.classList.remove('show');
+    }
+  }
   // 전체 초기화 (버그 수정 완비)
   function resetAll() {
     if (!confirm('전체 초기화하시겠습니까?')) return;
