@@ -559,80 +559,80 @@
   }
 
   function showWinner(name, colors, winnerCustomImg) {
-      const overlay = document.getElementById('winner-overlay');
-      const txt = document.getElementById('winner-text-big');
-      const img = document.getElementById('winner-custom-img');
+    const overlay = document.getElementById('winner-overlay');
+    const txt = document.getElementById('winner-text-big');
+    const img = document.getElementById('winner-custom-img');
 
-      if (winnerCustomImg) {
-        img.src = winnerCustomImg;
-        img.style.display = 'block';
-      } else {
-        img.style.display = 'none';
-      }
-
-      if (name === 'T1') {
-        txt.textContent = '🏆 T1 브래킷 스테이지 진출!';
-      } else {
-        txt.textContent = '🏆 ' + name + ' WIN!';
-      }
-      overlay.classList.add('show');
-
-      const duration = 10000;
-      const animationEnd = Date.now() + duration;
-
-      function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-
-      // 1. 양옆 대형 축포: 부드러운 곡선을 위해 gravity 낮추고 ticks(체공 시간) 늘림
-      const cannonInterval = setInterval(function() {
-        if (Date.now() > animationEnd) return clearInterval(cannonInterval);
-
-        confetti({
-          particleCount: 120, angle: 60, spread: 75, startVelocity: 80, gravity: 0.85, ticks: 300,
-          origin: { x: -0.1, y: 1 }, colors: colors, zIndex: 99999
-        });
-        confetti({
-          particleCount: 120, angle: 120, spread: 75, startVelocity: 80, gravity: 0.85, ticks: 300,
-          origin: { x: 1.1, y: 1 }, colors: colors, zIndex: 99999
-        });
-      }, 1000); // 1초 주기로 여유 있게 펑!
-
-      // 2. 메인 폭죽 & 눈송이: requestAnimationFrame 적용 (프레임 드랍 억제)
-      let frameId;
-      function frame() {
-        if (Date.now() > animationEnd) return;
-
-        // 화면 주사율에 맞춰 실행되므로 setInterval보다 압도적으로 부드러움
-        // 매 프레임마다 터지면 렉걸리므로, 확률(약 3%~10%)을 주어 자연스럽게 터지게 유도
-        
-        // 사방에서 터지는 랜덤 불꽃
-        if (Math.random() < 0.04) {
-          confetti({
-            particleCount: 60, startVelocity: 25, spread: 360, ticks: 200, gravity: 0.6, zIndex: 99999,
-            colors: colors,
-            origin: { x: randomInRange(0.1, 0.9), y: randomInRange(0.1, 0.4) }
-          });
-        }
-
-        // 우아하게 떨어지는 금빛 눈송이 (천장에서 상시로 조금씩)
-        if (Math.random() < 0.15) {
-          confetti({
-            particleCount: 2, startVelocity: 0, ticks: 400, gravity: 0.3, scale: 1.2,
-            origin: { x: Math.random(), y: -0.1 },
-            colors: ['#FFD700', '#ffffff'],
-            drift: randomInRange(-0.8, 0.8),
-            zIndex: 99999
-          });
-        }
-
-        frameId = requestAnimationFrame(frame);
-      }
-      frame();
-
-      setTimeout(() => { 
-        overlay.classList.remove('show'); 
-        cancelAnimationFrame(frameId); // 애니메이션 깔끔하게 종료
-      }, 10500);
+    if (winnerCustomImg) {
+      img.src = winnerCustomImg;
+      img.style.display = 'block';
+    } else {
+      img.style.display = 'none';
     }
+
+    if (name === 'T1') {
+      txt.textContent = '🏆 T1 브래킷 스테이지 진출!';
+    } else {
+      txt.textContent = '🏆 ' + name + ' WIN!';
+    }
+    overlay.classList.add('show');
+
+    const duration = 10000;
+    const animationEnd = Date.now() + duration;
+
+    function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+    // 1. 양옆 대형 축포: 부드러운 곡선을 위해 gravity 낮추고 ticks(체공 시간) 늘림
+    const cannonInterval = setInterval(function() {
+      if (Date.now() > animationEnd) return clearInterval(cannonInterval);
+
+      confetti({
+        particleCount: 120, angle: 60, spread: 75, startVelocity: 80, gravity: 0.85, ticks: 300,
+        origin: { x: -0.1, y: 1 }, colors: colors, zIndex: 99999
+      });
+      confetti({
+        particleCount: 120, angle: 120, spread: 75, startVelocity: 80, gravity: 0.85, ticks: 300,
+        origin: { x: 1.1, y: 1 }, colors: colors, zIndex: 99999
+      });
+    }, 1000); // 1초 주기로 여유 있게 펑!
+
+    // 2. 메인 폭죽 & 눈송이: requestAnimationFrame 적용 (프레임 드랍 억제)
+    let frameId;
+    function frame() {
+      if (Date.now() > animationEnd) return;
+
+      // 화면 주사율에 맞춰 실행되므로 setInterval보다 압도적으로 부드러움
+      // 매 프레임마다 터지면 렉걸리므로, 확률(약 3%~10%)을 주어 자연스럽게 터지게 유도
+      
+      // 사방에서 터지는 랜덤 불꽃
+      if (Math.random() < 0.04) {
+        confetti({
+          particleCount: 60, startVelocity: 25, spread: 360, ticks: 200, gravity: 0.6, zIndex: 99999,
+          colors: colors,
+          origin: { x: randomInRange(0.1, 0.9), y: randomInRange(0.1, 0.4) }
+        });
+      }
+
+      // 우아하게 떨어지는 금빛 눈송이 (천장에서 상시로 조금씩)
+      if (Math.random() < 0.15) {
+        confetti({
+          particleCount: 2, startVelocity: 0, ticks: 400, gravity: 0.3, scale: 1.2,
+          origin: { x: Math.random(), y: -0.1 },
+          colors: ['#FFD700', '#ffffff'],
+          drift: randomInRange(-0.8, 0.8),
+          zIndex: 99999
+        });
+      }
+
+      frameId = requestAnimationFrame(frame);
+    }
+    frame();
+
+    setTimeout(() => { 
+      overlay.classList.remove('show'); 
+      cancelAnimationFrame(frameId); // 애니메이션 깔끔하게 종료
+    }, 10500);
+  }
   // 웅장하고 스무스한 원형 폭죽 우승 연출
 
   function resetAll() {
