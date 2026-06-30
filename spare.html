@@ -330,10 +330,10 @@
 <script>
   // ==========================================
   // ⭐ [여기를 변경하세요] 오늘의 경기 팀 설정 변수 ⭐
-  // 사용 가능한 키: 'kc', 'tlaw', 't1', 'dcg'
+  // 사용 가능한 키: 't1', 'furia', 'tsw', 'lyon', 'hle', 'g2', 'tes', 'blg'
   // ==========================================
-  const teamLeft = 'kc';
-  const teamRight = 'tlaw';
+  const teamLeft = 't1';
+  const teamRight = 'lyon';
   
   // ==========================================
   // 데이터 마스터 사전 (팀 정보 통합 관리)
@@ -378,7 +378,78 @@
         bgStyle: "#ffffff",
         shadow: "rgba(200,16,46,0.4)",
         confetti: ['#C8102E','#ffffff','#ff6b6b']
+      },
+      furia: {
+        name: "FURIA",
+        region: "CBLOL · Brazil",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/furia_logo.webp",
+        hasBg: true,
+        color: "#00FF7F",
+        bgStyle: "#000000",
+        shadow: "rgba(0,255,127,0.4)",
+        confetti: ['#000000', '#00FF7F', '#ffffff']
+      },
+      tsw: {
+        name: "TSW",
+        region: "LPL · China",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/tsw_logo.webp",
+        hasBg: true,
+        color: "#FF8C00",
+        bgStyle: "#1a1a1a",
+        shadow: "rgba(255,140,0,0.4)",
+        confetti: ['#1a1a1a', '#FF8C00', '#ffffff']
+      },
+      lyon: {
+        name: "LYON",
+        region: "LLA · Latam",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/lyon_logo.svg",
+        hasBg: true,
+        color: "#D2B48C",
+        bgStyle: "#4a3c31",
+        shadow: "rgba(210,180,140,0.4)",
+        confetti: ['#D2B48C', '#4a3c31', '#ffffff']
+      },
+      hle: {
+        name: "HLE",
+        region: "LCK · Korea",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/hle_logo.svg",
+        hasBg: true,
+        color: "#FF4500",
+        bgStyle: "#000000",
+        shadow: "rgba(255,69,0,0.4)",
+        confetti: ['#FF4500', '#000000', '#ffffff']
+      },
+      g2: {
+        name: "G2",
+        region: "LEC · Europe",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/g2_logo.svg",
+        hasBg: true,
+        color: "#006400",
+        bgStyle: "#111111",
+        shadow: "rgba(0,100,0,0.4)",
+        confetti: ['#111111', '#006400', '#ffffff']
+      },
+      tes: {
+        name: "TES",
+        region: "LPL · China",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/tes_logo.webp",
+        hasBg: true,
+        color: "#E60012",
+        bgStyle: "#ffffff",
+        shadow: "rgba(230,0,18,0.4)",
+        confetti: ['#E60012', '#ffffff', '#000000']
+      },
+      blg: {
+        name: "BLG",
+        region: "LPL · China",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/blg_logo.svg",
+        hasBg: true,
+        color: "#FF69B4",
+        bgStyle: "#00aaff",
+        shadow: "rgba(255,105,180,0.4)",
+        confetti: ['#00aaff', '#FF69B4', '#ffffff']
       }
+    
     };
 
   // 실시간 점수 관리 변수
