@@ -169,7 +169,11 @@
     letter-spacing: -0.02em; line-height: 1;
   }
   .game-num-sub { font-size: 24px; color: var(--muted); }
-
+  .game-num-display .set-text {
+    font-size: 0.65em;
+    margin-left: 2px;
+    font-weight: 500;
+  }
   .time-adjust {
     display: flex; align-items: center; gap: 10px; margin-top: 6px;
   }
@@ -340,7 +344,7 @@
     </div>
     <div class="timer-box">
       <div class="box-label">현재 게임</div>
-      <div class="game-num-display" id="game-num">1</div>
+      <div class="game-num-display" id="game-num">1<span class="set-text">세트</span></div>
       <div class="game-num-sub">Game <span id="game-num-sub">1</span> of 5</div>
     </div>
   </div>
@@ -491,7 +495,7 @@
     }
     
     const nextGame = Math.min(scoreLeft + scoreRight + 1, 5);
-    document.getElementById('game-num').textContent = nextGame;
+    document.getElementById('game-num').innerHTML = nextGame + '<span class="set-text">세트</span>';
     document.getElementById('game-num-sub').textContent = nextGame;
     checkWinner();
   }
