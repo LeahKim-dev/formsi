@@ -349,7 +349,7 @@
 
 <div id="schedule-overlay" onclick="closeScheduleModal()">
   <div class="winner-container">
-    <img id="schedule-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/schedule.jpg" alt="일정표" style="max-width: 100%; max-height: 90vh; border-radius: 16px;">
+    <img id="schedule-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/schedule.jpg" alt="일정표" style="max-width: 65vw; max-height: 90vh; border-radius: 16px;">
   </div>
 </div>
 <div id="bracket-overlay" onclick="closeBracketModal()">
@@ -439,8 +439,8 @@
   // 7/4
   // blg vs t1 5시
   // ==========================================
-  const teamLeft = 'blg';
-  const teamRight = 't1';
+  const teamLeft = 'hle';
+  const teamRight = 'tsw';
   
   // ==========================================
   // 데이터 마스터 사전 (팀 정보 통합 관리)
@@ -735,8 +735,8 @@
     } else {
       const end = Date.now() + 4000;
       (function frame() {
-        confetti({ particleCount: 6, angle: 60, spread: 55, origin:{x:0}, colors });
-        confetti({ particleCount: 6, angle: 120, spread: 55, origin:{x:1}, colors });
+        confetti({ particleCount: 6, angle: 60, spread: 55, origin:{x:0}, colors, zIndex: 99999 });
+        confetti({ particleCount: 6, angle: 120, spread: 55, origin:{x:1}, colors, zIndex: 99999 });
         if (Date.now() < end) requestAnimationFrame(frame);
       })();
       

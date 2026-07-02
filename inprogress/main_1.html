@@ -255,8 +255,10 @@
   @keyframes zoomInCustom { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
   #winner-custom-img {
-    max-width: 100vw;
-    max-height: 100vh;
+    width: auto;
+    height: auto;
+    max-width: 90vw;
+    max-height: 80vh;
     object-fit: contain;
     border-radius: 4px;
     box-shadow: 0 0 200px rgba(235, 16, 46, 0.5); /* 네온 백라이트 강화 */
@@ -264,10 +266,8 @@
   }
 
   .winner-text-big {
+    /* 기본값: 사진 없이 텍스트만 뜰 때는 컨테이너 흐름 안에서 자연스럽게 중앙 정렬 */
     position: static;
-    /* bottom: 50px;
-    left: 0;
-    width: 100%; */
     text-align: center;
     font-size: 64px; /* 자막 더 선명하게 확대 */
     font-weight: 900;
@@ -277,6 +277,14 @@
     padding: 0 40px;
     pointer-events: none;
     z-index: 10;
+  }
+
+  /* 사진이 있을 때만: 사진 위 하단에 텍스트를 덧씌움 */
+  .winner-container.has-photo .winner-text-big {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    width: 100%;
   }
 
   /* 이벤트 필과 대진표 버튼을 가로로 정렬 */
@@ -431,8 +439,8 @@
   // 7/4
   // blg vs t1 5시
   // ==========================================
-  const teamLeft = 'blg';
-  const teamRight = 't1';
+  const teamLeft = 'hle';
+  const teamRight = 'tsw';
   
   // ==========================================
   // 데이터 마스터 사전 (팀 정보 통합 관리)
@@ -654,8 +662,10 @@
       if (winnerCustomImg) {
         img.src = winnerCustomImg;
         img.style.display = 'block';
+        img.closest('.winner-container').classList.add('has-photo');
       } else {
         img.style.display = 'none';
+        img.closest('.winner-container').classList.remove('has-photo');
       }
     }
 
@@ -725,8 +735,8 @@
     } else {
       const end = Date.now() + 4000;
       (function frame() {
-        confetti({ particleCount: 6, angle: 60, spread: 55, origin:{x:0}, colors });
-        confetti({ particleCount: 6, angle: 120, spread: 55, origin:{x:1}, colors });
+        confetti({ particleCount: 6, angle: 60, spread: 55, origin:{x:0}, colors, zIndex: 99999 });
+        confetti({ particleCount: 6, angle: 120, spread: 55, origin:{x:1}, colors, zIndex: 99999 });
         if (Date.now() < end) requestAnimationFrame(frame);
       })();
       
