@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">MSI 2026</title>
+  
+  <!-- 🎨 스타일 바인딩 -->
+  <link rel="stylesheet" href="./style.css">
+
+  <!-- 🎆 의존성 및 서브 모듈 자바스크립트 스크립트 순차 로드 -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <script src="./teams-db.js" defer></script>
+  <script src="./effects.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+
+  <!-- WINNER OVERLAY MODAL -->
+  <div class="winner-overlay" id="winner-overlay">
+    <div class="winner-container">
+      <img id="winner-custom-img" src="" alt="Winner Celebration">
+      <div class="winner-text-big" id="winner-text-big"></div>
+    </div>
+  </div>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="event-wrapper">
+      <div class="event-pill">MSI 2026 · 브래킷 스테이지</div>
+      <button class="btn-timer btn-bracket-top" onclick="openScheduleModal()">📅</button>
+      <button id="btn-bracket" class="btn-timer btn-bracket-top" onclick="openBracketModal()">대진표</button>
+    </div>
+    <div class="real-clock">KST&nbsp;<span id="realtime">--:--:--</span></div>
+  </div>
+
+  <!-- MODALS OVERLAY INTERFACE -->
+  <div id="schedule-overlay" onclick="closeScheduleModal()">
+    <div class="winner-container">
+      <img id="schedule-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/schedule.jpg" alt="일정표" style="max-width: 65vw; max-height: 90vh; border-radius: 16px;">
+    </div>
+  </div>
+  
+  <div id="bracket-overlay" onclick="closeBracketModal()">
+    <div class="winner-container">
+      <img id="bracket-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/bracket.png" alt="대진표" style="max-width: 100%; max-height: 90vh; border-radius: 16px;">
+    </div>
+  </div>
+
+  <!-- MAIN CARD BOARD -->
+  <div class="main-card">
+    <!-- MATCH HEADER (TEAM VS TEAM) -->
+    <div class="match-header">
+      <!-- 왼쪽 팀 -->
+      <div class="team">
+        <div class="team-badge" id="badge-left"></div>
+        <div class="team-name" id="name-left">--</div>
+        <div class="team-region" id="region-left">--</div>
+        <div class="score-btn-group">
+          <button class="btn-score" onclick="changeScore('left',-1)">−</button>
+          <button class="btn-score" onclick="changeScore('left',1)">+</button>
+        </div>
+      </div>
+
+      <!-- 중앙 스코어 디스플레이 -->
+      <div class="score-center">
+        <div class="series-score">
+          <span class="series-num" id="set-left">0</span>
+          <span class="series-sep">:</span>
+          <span class="series-num" id="set-right">0</span>
+        </div>
+        <div class="series-format">Best of 5</div>
+        <div class="live-badge"><span class="live-dot"></span> Live</div>
+      </div>
+
+      <!-- 오른쪽 팀 -->
+      <div class="team">
+        <div class="team-badge" id="badge-right"></div>
+        <div class="team-name" id="name-right">--</div>
+        <div class="team-region" id="region-right">--</div>
+        <div class="score-btn-group">
+          <button class="btn-score" onclick="changeScore('right',-1)">−</button>
+          <button class="btn-score" onclick="changeScore('right',1)">+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMER + CURRENT GAME STATUS -->
+    <div class="timer-section">
+      <div class="timer-box">
+        <div class="box-label">게임 타이머</div>
+        <div class="game-time-display" id="game-timer">00:00</div>
+        <div class="time-adjust">
+          <input class="time-input" id="input-min" type="number" min="0" max="99" value="0">
+          <span class="time-sep">:</span>
+          <input class="time-input" id="input-sec" type="number" min="0" max="59" value="0">
+          <button class="btn-set-time" onclick="setManualTime()">설정</button>
+        </div>
+        <div class="timer-btns">
+          <button class="btn-timer primary" id="btn-start" onclick="startTimer()">▶ 시작</button>
+          <button class="btn-timer" onclick="pauseTimer()">⏸ 정지</button>
+          <button class="btn-timer" onclick="resetTimer()">↺ 초기화</button>
+        </div>
+      </div>
+      
+      <div class="timer-box">
+        <div class="box-label">현재 게임</div>
+        <div class="game-num-display" id="game-num">1<span class="set-text">세트</span></div>
+        <div class="game-num-sub">Game <span id="game-num-sub">1</span> of 5</div>
+      </div>
+    </div>
+
+    <!-- FOOTER PANEL -->
+    <div class="footer">
+      <div class="footer-note" id="winner-text"></div>
+      <button class="btn-reset" onclick="resetAll()">전체 초기화</button>
+    </div>
+  </div>
+
+</body>
+</html>
