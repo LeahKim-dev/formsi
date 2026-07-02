@@ -237,7 +237,7 @@
   .winner-overlay {
     display: none;
     position: fixed; inset: 0;
-    background: rgba(3, 3, 5, 0.93); /* 스크린 이외 공간 암전 극대화 */
+    background: rgba(0, 0, 0, 0.4); /* 스크린 이외 공간 암전 극대화 */
     z-index: 1000;
     align-items: center; 
     justify-content: center;
@@ -248,6 +248,7 @@
   .winner-container {
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     animation: zoomInCustom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) ease;
@@ -255,10 +256,9 @@
   @keyframes zoomInCustom { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
   #winner-custom-img {
-    width: auto;
-    height: auto;
-    max-width: 90vw;
-    max-height: 80vh;
+    width: 100%;
+    max-width: 1400px;
+    height: 80vh;
     object-fit: contain;
     border-radius: 4px;
     box-shadow: 0 0 200px rgba(235, 16, 46, 0.5); /* 네온 백라이트 강화 */
@@ -281,7 +281,7 @@
 
   /* 사진이 있을 때만: 사진 위 하단에 텍스트를 덧씌움 */
   .winner-container.has-photo .winner-text-big {
-    position: absolute;
+    position: static;
     bottom: 50px;
     left: 0;
     width: 100%;
@@ -349,12 +349,12 @@
 
 <div id="schedule-overlay" onclick="closeScheduleModal()">
   <div class="winner-container">
-    <img id="schedule-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/schedule.jpg" alt="일정표" style="max-width: 65vw; max-height: 90vh; border-radius: 16px;">
+    <img id="schedule-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/schedule.jpg" alt="일정표" style="max-width: 50vw; max-height: 90vh; border-radius: 16px;">
   </div>
 </div>
 <div id="bracket-overlay" onclick="closeBracketModal()">
   <div class="winner-container">
-    <img id="bracket-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/bracket.png" alt="대진표" style="max-width: 100%; max-height: 90vh; border-radius: 16px;">
+    <img id="bracket-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/bracket.png" alt="대진표" style="height: 90vh; border-radius: 16px;">
   </div>
 </div>
 
@@ -439,8 +439,8 @@
   // 7/4
   // blg vs t1 5시
   // ==========================================
-  const teamLeft = 'hle';
-  const teamRight = 'tsw';
+  const teamLeft = 'g2';
+  const teamRight = 'tes';
   
   // ==========================================
   // 데이터 마스터 사전 (팀 정보 통합 관리)
@@ -660,6 +660,10 @@
 
     if (img) {
       if (winnerCustomImg) {
+        txt.style.opacity = "0";
+        img.onload = () => {
+            txt.style.opacity = "1";
+        };
         img.src = winnerCustomImg;
         img.style.display = 'block';
         img.closest('.winner-container').classList.add('has-photo');
