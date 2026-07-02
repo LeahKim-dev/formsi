@@ -1,23 +1,19 @@
-/**
- * ⚙️ MSI 2026 경기 스코어보드 & 타이머 제어 스크립트
- */
-
-// ==========================================
-// ⭐ 오늘의 경기 팀 매치 설정 변수
-// ==========================================
-const teamLeft = 'hle';
-const teamRight = 't1';
-
 // 상태 관리 변수
 let scoreLeft = 0, scoreRight = 0;
 let timerSec = 0, timerRunning = false, timerInterval = null;
 
 // 화면 초기 레이아웃 빌더
 function initLayout() {
-  const leftData = dbTeams[teamLeft];
-  const rightData = dbTeams[teamRight];
+  currentTeamLeft = CONFIG.teamLeft;
+  currentTeamRight = CONFIG.teamRight;
+
+  const leftData = dbTeams[currentTeamLeft];
+  const rightData = dbTeams[currentTeamRight];
 
   if (!leftData || !rightData) return alert("팀 설정 매칭 변수 오류!");
+
+  const baseImgUrl = "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/";
+  document.getElementById('bracket-img').src = baseImgUrl + CONFIG.bracketFileName;
 
   // 브라우저 타이틀 설정
   document.getElementById('page-title').textContent = `${leftData.name} vs ${rightData.name} — MSI 2026`;
@@ -120,11 +116,11 @@ function changeScore(side, delta) {
 function checkWinner() {
   const el = document.getElementById('winner-text');
   if (scoreLeft === 3) {
-    const team = dbTeams[teamLeft];
+    const team = dbTeams[currentTeamLeft];
     el.textContent = `🏆 ${team.name} 승리!`;
     showWinner(team.name, team.confetti, team.winnerImgUrl, team.effectType);
   } else if (scoreRight === 3) {
-    const team = dbTeams[teamRight];
+    const team = dbTeams[currentTeamRight];
     el.textContent = `🏆 ${team.name} 승리!`;
     showWinner(team.name, team.confetti, team.winnerImgUrl, team.effectType);
   } else {

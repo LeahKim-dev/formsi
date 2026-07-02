@@ -1,7 +1,3 @@
-/**
- * 🎆 우승 축하 컨페티 연출 라이브러리
- */
-
 // 모든 컨페티 옵션에 zIndex를 기본 주입하는 헬퍼 함수
 function safeConfetti(options) {
   return confetti({

@@ -257,10 +257,8 @@ body {
 @keyframes zoomInCustom { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
 #winner-custom-img {
-  width: auto;
-  height: auto;
-  max-width: 90vw;
-  max-height: 80vh;
+  max-width: 70vw;
+  max-height: 90vh;
   object-fit: contain;
   border-radius: 4px;
   box-shadow: 0 0 200px rgba(235, 16, 46, 0.5);
