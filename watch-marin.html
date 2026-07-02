@@ -233,24 +233,53 @@
   }
   .btn-reset:hover { color: var(--text); border-color: rgba(255,255,255,0.3); }
 
-  /* WINNER OVERLAY */
+  /* ─── 🎆 WINNER OVERLAY ─── */
   .winner-overlay {
     display: none;
     position: fixed; inset: 0;
-    background: rgba(0,0,0,0.75);
-    z-index: 100;
-    align-items: center; justify-content: center;
-    flex-direction: column; gap: 2rem;
+    background: rgba(3, 3, 5, 0.93); /* 스크린 이외 공간 암전 극대화 */
+    z-index: 1000;
+    align-items: center; 
+    justify-content: center;
   }
-  .winner-overlay.show { display: flex; animation: fadeIn 0.4s ease; }
+  .winner-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  .winner-text-big {
-    font-size: 120px; font-weight: 800; color: #fff;
-    text-shadow: 0 4px 50px rgba(0,0,0,0.8);
-    letter-spacing: -0.02em;
-    animation: zoomIn 0.4s ease;
+
+  .winner-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: zoomInCustom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) ease;
   }
-  @keyframes zoomIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes zoomInCustom { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  #winner-custom-img {
+    width: 1600px;
+    max-height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 200px rgba(235, 16, 46, 0.5); /* 네온 백라이트 강화 */
+    display: block;
+  }
+
+  .winner-text-big {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 64px; /* 자막 더 선명하게 확대 */
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 4px 25px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,1), 0 0 15px rgba(235,16,46,1);
+    letter-spacing: -0.03em;
+    padding: 0 40px;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+
 
   /* 이벤트 필과 대진표 버튼을 가로로 정렬 */
   .event-wrapper {
@@ -287,7 +316,7 @@
   }
 
   /* 모달 활성화 클래스 */
-  #bracket-overlay.show #schedule-overlay.show {
+  #bracket-overlay.show, #schedule-overlay.show {
     display: flex;
     animation: fadeIn 0.3s ease;
   }
@@ -296,7 +325,10 @@
 <body>
 
 <div class="winner-overlay" id="winner-overlay">
-  <div class="winner-text-big" id="winner-text-big"></div>
+  <div class="winner-container">
+    <img id="winner-custom-img" src="" alt="Winner Celebration">
+    <div class="winner-text-big" id="winner-text-big"></div>
+  </div>
 </div>
 
 <div class="top-bar">
@@ -311,12 +343,12 @@
 
 <div id="schedule-overlay" onclick="closeScheduleModal()">
   <div class="winner-container">
-    <img id="schedule-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/schedule.webp" alt="일정표" style="max-width: 100%; max-height: 90vh; border-radius: 16px;">
+    <img id="schedule-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/schedule.jpg" alt="일정표" style="max-width: 100%; max-height: 90vh; border-radius: 16px;">
   </div>
 
 <div id="bracket-overlay" onclick="closeBracketModal()">
   <div class="winner-container">
-    <img id="bracket-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/bracket.png" alt="대진표" style="max-width: 1q00%; max-height: 90vh; border-radius: 16px;">
+    <img id="bracket-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/bracket.png" alt="대진표" style="max-width: 100%; max-height: 90vh; border-radius: 16px;">
   </div>
 </div>
 
@@ -404,8 +436,8 @@
   // 7/4
   // blg vs t1
   // ==========================================
-  const teamLeft = 'hle';
-  const teamRight = 'tsw';
+  const teamLeft = 'blg';
+  const teamRight = 't1';
   
   // ==========================================
   // 데이터 마스터 사전 (팀 정보 통합 관리)
@@ -414,7 +446,7 @@
       t1: {
         name: "T1",
         region: "LCK · Korea",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/t1_logo.svg", 
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/t1_logo.svg", 
         hasBg: true,
         color: "#aa0025", 
         bgStyle: "#111111",
@@ -424,27 +456,27 @@
       furia: {
         name: "FURIA",
         region: "CBLOL · Brazil",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/furia_logo.webp",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/furia_logo.webp",
         hasBg: true,
-        color: "#0f9b3d",
+        color: "#f5f39b",
         bgStyle: "#fdfbfb",
-        shadow: "rgba(0,255,127,0.4)",
-        confetti: ['#ffd86e', '#87cd9e', '#ffffff']
+        shadow: "rgba(253, 252, 172, 0.29)",
+        confetti: ['#ffd86e', '#bfffd5', '#ffffff']
       },
       tsw: {
         name: "TSW",
         region: "LPL · China",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/tsw_logo.webp",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/tsw_logo.webp",
         hasBg: true,
         color: "#007fb9",
         bgStyle: "#fdfbfb",
-        shadow: "#48bbf19c",
-        confetti: ['#48bbf19c', '#d9ebff', '#ffffff']
+        shadow: "#007eb96c",
+        confetti: ['#89d2fc9c','#a0dffc9c', '#e8f6fc']
       },
       lyon: {
         name: "LYON",
         region: "LCS · Mexico",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/lyon_logo.svg",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/lyon_logo.svg",
         hasBg: true,
         color: "#c09d76",
         bgStyle: "#111111",
@@ -454,7 +486,7 @@
       hle: {
         name: "HLE",
         region: "LCK · Korea",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/hle_logo.svg",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/hle_logo.svg",
         hasBg: true,
         color: "#f06f25",
         bgStyle: "#fdfbfb",
@@ -464,17 +496,17 @@
       g2: {
         name: "G2",
         region: "LEC · Europe",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/g2_logo.svg",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/g2_logo.svg",
         hasBg: true,
         color: "#006400",
         bgStyle: "#111111",
         shadow: "rgba(0,100,0,0.4)",
-        confetti: ['#afeeaf', '#006400', '#ffffff']
+        confetti: ['#c7ebc7', '#4f924f', '#ffffff']
       },
       tes: {
         name: "TES",
         region: "LPL · China",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/tes_logo.webp",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/tes_logo.webp",
         hasBg: true,
         color: "#ca2823",
         bgStyle: "#fdfbfb",
@@ -484,12 +516,12 @@
       blg: {
         name: "BLG",
         region: "LPL · China",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/blg_logo.svg",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/blg_logo.svg",
         hasBg: true,
         color: "#F86F98",
         bgStyle: "#fdfbfb",
         shadow: "rgba(255,105,180,0.4)",
-        confetti: ['#42D1F2', '#F86F98', '#ffffff']
+        confetti: ['#8ae4f880', '#faa1bc77', '#ffffff']
       }
     
     };
@@ -617,30 +649,97 @@
   }
 
   // 위너 모달 오버레이 바인딩 + 폭죽 컬러 동적 할당
-  function showWinner(name, colors) {
+  function showWinner(name, colors, winnerCustomImg) {
     const overlay = document.getElementById('winner-overlay');
     const txt = document.getElementById('winner-text-big');
+    const img = document.getElementById('winner-custom-img');
+
+    if (winnerCustomImg) {
+      img.src = winnerCustomImg;
+      img.style.display = 'block';
+    } else {
+      img.style.display = 'none';
+    }
+
+    const shadowColor = (Array.isArray(colors) && colors.length > 0) ? colors[0] : colors;
+    txt.style.textShadow = `0 4px 25px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,1), 0 0 15px ${shadowColor}`;
+
     txt.textContent = '🏆 ' + name + ' WIN!';
     overlay.classList.add('show');
 
-    const end = Date.now() + 4000;
-    (function frame() {
-      confetti({ particleCount: 6, angle: 60, spread: 55, origin:{x:0}, colors });
-      confetti({ particleCount: 6, angle: 120, spread: 55, origin:{x:1}, colors });
-      if (Date.now() < end) requestAnimationFrame(frame);
-    })();
+    if (name === 'T1') {
+      const duration = 6000;
+      const animationEnd = Date.now() + duration;
 
-    setTimeout(()=>{ overlay.classList.remove('show'); }, 4500);
-  }
+      function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
-  // [대진표 모달] 제어 함수
-  function openBracketModal() {
-    const bracketOverlay = document.getElementById('bracket-overlay');
-    if (bracketOverlay) {
-      bracketOverlay.classList.add('show');
+      // 1. 양옆 대형 축포: 부드러운 곡선을 위해 gravity 낮추고 ticks(체공 시간) 늘림
+      const cannonInterval = setInterval(function() {
+        if (Date.now() > animationEnd) return clearInterval(cannonInterval);
+
+        confetti({
+          particleCount: 120, angle: 60, spread: 75, startVelocity: 80, gravity: 0.85, ticks: 300,
+          origin: { x: -0.1, y: 1 }, colors: colors, zIndex: 99999
+        });
+        confetti({
+          particleCount: 120, angle: 120, spread: 75, startVelocity: 80, gravity: 0.85, ticks: 300,
+          origin: { x: 1.1, y: 1 }, colors: colors, zIndex: 99999
+        });
+      }, 1000); // 1초 주기로 여유 있게 펑!
+
+      // 2. 메인 폭죽 & 눈송이: requestAnimationFrame 적용 (프레임 드랍 억제)
+      let frameId;
+      function frame() {
+        if (Date.now() > animationEnd) return;
+
+        // 사방에서 터지는 랜덤 불꽃
+        if (Math.random() < 0.04) {
+          confetti({
+            particleCount: 60, startVelocity: 25, spread: 360, ticks: 200, gravity: 0.6, zIndex: 99999,
+            colors: colors,
+            origin: { x: randomInRange(0.1, 0.9), y: randomInRange(0.1, 0.4) }
+          });
+        }
+
+        // 우아하게 떨어지는 금빛 눈송이 (천장에서 상시로 조금씩)
+        if (Math.random() < 0.15) {
+          confetti({
+            particleCount: 2, startVelocity: 0, ticks: 600, gravity: 0.5, scale: 1.2,
+            origin: { x: Math.random(), y: -0.1 },
+            colors: ['#FFD700', '#ffffff'],
+            drift: randomInRange(-0.8, 0.8),
+            zIndex: 99999
+          });
+        }
+
+        frameId = requestAnimationFrame(frame);
+      }
+      frame();
+
+      setTimeout(() => { 
+        overlay.classList.remove('show'); 
+        cancelAnimationFrame(frameId); // 애니메이션 깔끔하게 종료
+      }, 6500);
+    } else {
+      const end = Date.now() + 4000;
+      (function frame() {
+        confetti({ particleCount: 6, angle: 60, spread: 55, origin:{x:0}, colors });
+        confetti({ particleCount: 6, angle: 120, spread: 55, origin:{x:1}, colors });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+      
+      setTimeout(()=>{ overlay.classList.remove('show'); }, 4500);
+      }
     }
-  }
-
+    
+    // [대진표 모달] 제어 함수
+    function openBracketModal() {
+      const bracketOverlay = document.getElementById('bracket-overlay');
+      if (bracketOverlay) {
+        bracketOverlay.classList.add('show');
+      }
+    }
+    
   function closeBracketModal() {
     const bracketOverlay = document.getElementById('bracket-overlay');
     if (bracketOverlay) {
