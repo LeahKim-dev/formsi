@@ -12,9 +12,9 @@
 
 const CONFIG = {
   // 1. 오늘 경기 팀 설정 (teams-db.js에 있는 키값 사용)
-  teamLeft: 'lyon',
-  teamRight: 'g2',
+  teamLeft: 't1',
+  teamRight: 'blg',
 
   // 2. 대진표 이미지 파일명 (주소 뒷부분 파일명만 확장자 포함해서 변경)
-  bracketFileName: 'test2.jpeg' 
+  bracketFileName: 'test2.jpg' 
 };
