@@ -635,10 +635,10 @@
     const el = document.getElementById('winner-text');
     if (scoreLeft === 3) {
       el.textContent = `🏆 ${dbTeams[teamLeft].name} 승리!`;
-      showWinner(dbTeams[teamLeft].name, dbTeams[teamLeft].confetti);
+      showWinner(dbTeams[teamLeft].name, dbTeams[teamLeft].confetti, dbTeams[teamLeft].winnerImgUrl);
     } else if (scoreRight === 3) {
       el.textContent = `🏆 ${dbTeams[teamRight].name} 승리!`;
-      showWinner(dbTeams[teamRight].name, dbTeams[teamRight].confetti);
+      showWinner(dbTeams[teamRight].name, dbTeams[teamRight].confetti, dbTeams[teamRight].winnerImgUrl);
     } else {
       el.textContent = '';
     }
