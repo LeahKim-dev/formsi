@@ -16,5 +16,5 @@ const CONFIG = {
   teamRight: 'g2',
 
   // 2. 대진표 이미지 파일명 (주소 뒷부분 파일명만 확장자 포함해서 변경)
-  bracketFileName: 'test.jpeg' 
+  bracketFileName: 'test2.jpeg' 
 };

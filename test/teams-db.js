@@ -1,6 +1,3 @@
-/**
- * 📊 MSI 2026 팀 정보 데이터베이스
- */
 const dbTeams = {
   t1: {
     name: "T1",
