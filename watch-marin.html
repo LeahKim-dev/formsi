@@ -649,18 +649,23 @@
     const txt = document.getElementById('winner-text-big');
     const img = document.getElementById('winner-custom-img');
 
-    if (winnerCustomImg) {
-      img.src = winnerCustomImg;
-      img.style.display = 'block';
-    } else {
-      img.style.display = 'none';
+    if (img) {
+      if (winnerCustomImg) {
+        img.src = winnerCustomImg;
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
     }
 
-    const shadowColor = (Array.isArray(colors) && colors.length > 0) ? colors[0] : colors;
-    txt.style.textShadow = `0 4px 25px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,1), 0 0 15px ${shadowColor}`;
+    if (txt) {
+        const shadowColor = (Array.isArray(colors) && colors.length > 0) ? colors[0] : colors;
+        txt.style.textShadow = `0 4px 25px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,1), 0 0 15px ${shadowColor}`;
 
     txt.textContent = '🏆 ' + name + ' WIN!';
-    overlay.classList.add('show');
+    if (overlay) {
+        overlay.classList.add('show');
+    }
 
     if (name === 'T1') {
       const duration = 6000;
@@ -715,6 +720,7 @@
         overlay.classList.remove('show'); 
         cancelAnimationFrame(frameId); // 애니메이션 깔끔하게 종료
       }, 6500);
+
     } else {
       const end = Date.now() + 4000;
       (function frame() {
@@ -726,7 +732,7 @@
       setTimeout(()=>{ overlay.classList.remove('show'); }, 4500);
       }
     }
-    
+  }  
     // [대진표 모달] 제어 함수
     function openBracketModal() {
       const bracketOverlay = document.getElementById('bracket-overlay');
