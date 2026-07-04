@@ -1,10 +1,40 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="page-title">MSI 2026</title>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">MSI 2026</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <meta name="version" content="1.0">
+
+  <script>
+    setInterval(function() {
+      // URL 뒤에 무작위 타임스탬프를 붙여 깃허브 캐시를 우회하여 최신 HTML을 강제로 조회합니다.
+      const cacheBuster = window.location.href.split('?')[0] + '?v=' + new Date().getTime();
+      
+      fetch(cacheBuster, { cache: "no-store" })
+        .then(response => response.text())
+        .then(htmlText => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(htmlText, "text/html");
+          
+          // 서버(깃허브)에 방금 올라간 최신 버전 확인
+          const serverVersion = doc.querySelector('meta[name="version"]')?.getAttribute('content');
+          // 시청자가 지금 브라우저에 켜놓고 있는 현재 버전 확인
+          const currentVersion = document.querySelector('meta[name="version"]')?.getAttribute('content');
+          
+          // 서버 버전과 현재 버전이 다르면 (즉, 내가 새로 배포했다면)
+          if (serverVersion && currentVersion && serverVersion !== currentVersion) {
+            console.log(`[배포 감지] 새 버전(v${serverVersion})이 확인되어 화면을 새로고침합니다.`);
+            window.location.reload(true); // 시청자 화면 강제 새로고침
+          }
+        })
+        .catch(err => console.log("버전 체크 중 오류 발생:", err));
+    }, 30000); // 30초마다 몰래 체크 (평소에는 화면 깜빡임이나 끊김이 전혀 없습니다)
+  </script>
+</head>
 <style>
   :root {
     --bg: #0a0a0f;
@@ -354,7 +384,7 @@
 </div>
 <div id="bracket-overlay" onclick="closeBracketModal()">
   <div class="winner-container">
-    <img id="bracket-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/bracket2.png" alt="대진표" style="height: 90vh; border-radius: 16px;">
+    <img id="bracket-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/bracket3.png" alt="대진표" style="height: 90vh; border-radius: 16px;">
   </div>
 </div>
 
