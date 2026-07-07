@@ -7,7 +7,7 @@
   
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-  <meta name="version" content="1.4">
+  <meta name="version" content="1.6">
 
   <script>
     setInterval(function() {
@@ -356,22 +356,13 @@
     display: flex;
     animation: fadeIn 0.3s ease;
   }
-  #winner-custom-vid {
-    width: auto;
-    max-width: 90vw;
-    height: 70vh;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 0 50px rgba(200, 16, 46, 0.6);
-}
 </style>
 </head>
 <body>
 
 <div class="winner-overlay" id="winner-overlay">
   <div class="winner-container">
-    <video id="winner-custom-vid" style="display:none;" autoplay loop muted playsinline></video>
-    <!-- <img id="winner-custom-img" src="" alt="Winner Celebration"> -->
+    <img id="winner-custom-img" src="" alt="Winner Celebration">
     <div class="winner-text-big" id="winner-text-big"></div>
   </div>
 </div>
@@ -465,8 +456,8 @@
 </div>
 
 <script>
-  const teamLeft = 'g2';
-  const teamRight = 't1';
+  const teamLeft = 'lyon';
+  const teamRight = 'tsw';
   // 사용 가능한 키: 't1', 'furia', 'tsw', 'lyon', 'hle', 'g2', 'tes', 'blg'
   // 7/8
   // lyon vs tsw 12시
@@ -474,6 +465,7 @@
   // 
   // 7/9
   // hle vs blg 5시
+
   // ==========================================
   // 데이터 마스터 사전 (팀 정보 통합 관리)
   // ==========================================
@@ -482,7 +474,7 @@
         name: "T1",
         region: "LCK · Korea",
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/t1_logo.svg",
-        winnerImgUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/t1/vid2.mp4",
+        winnerImgUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/t1/t1win_v6.jpg",
         hasBg: true,
         color: "#aa0025", 
         bgStyle: "#111111",
@@ -688,32 +680,22 @@
   function showWinner(name, colors, winnerCustomImg) {
     const overlay = document.getElementById('winner-overlay');
     const txt = document.getElementById('winner-text-big');
-    const vid = document.getElementById('winner-custom-vid');
-    if (winnerCustomImg) {
-        vid.src = winnerCustomImg; // .mp4 등 동영상 파일 URL
-        vid.style.display = 'block';
-        vid.play();
-    } else {
-        vid.style.display = 'none';
-        vid.pause();
-        vid.currentTime = 0; // 다음 재생을 위해 영상 위치를 처음으로 초기화
-    }
-    // const img = document.getElementById('winner-custom-img');
+    const img = document.getElementById('winner-custom-img');
 
-    // if (img) {
-    //   if (winnerCustomImg) {
-    //     txt.style.opacity = "0";
-    //     img.onload = () => {
-    //         txt.style.opacity = "1";
-    //     };
-    //     img.src = winnerCustomImg;
-    //     img.style.display = 'block';
-    //     img.closest('.winner-container').classList.add('has-photo');
-    //   } else {
-    //     img.style.display = 'none';
-    //     img.closest('.winner-container').classList.remove('has-photo');
-    //   }
-    // }
+    if (img) {
+      if (winnerCustomImg) {
+        txt.style.opacity = "0";
+        img.onload = () => {
+            txt.style.opacity = "1";
+        };
+        img.src = winnerCustomImg;
+        img.style.display = 'block';
+        img.closest('.winner-container').classList.add('has-photo');
+      } else {
+        img.style.display = 'none';
+        img.closest('.winner-container').classList.remove('has-photo');
+      }
+    }
 
     if (txt) {
         const shadowColor = (Array.isArray(colors) && colors.length > 0) ? colors[0] : colors;
