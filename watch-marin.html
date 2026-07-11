@@ -698,14 +698,14 @@
         const shadowColor = (Array.isArray(colors) && colors.length > 0) ? colors[0] : colors;
         txt.style.textShadow = `0 4px 25px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,1), 0 0 15px ${shadowColor}`;
 
-        txt.innerHTML = '🏆 ' + name + ' 🏆<br><span style="font-size: 0.7em; font-weight: 600;">MSI 2026 CHAMPIONS!</span>';
+        txt.innerHTML = '🏆 ' + name + ' 🏆<br><span style="font-size: 0.7em; font-weight: 600;">MSI 2026 CHAMPIONS</span>';
 
         if (overlay) {
             overlay.classList.add('show');
         }
 
     if (name === 'HLE') {
-      const duration = 6000;
+      const duration = 15000;
       const animationEnd = Date.now() + duration;
 
       function randomInRange(min, max) { return Math.random() * (max - min) + min; }
@@ -756,7 +756,7 @@
       setTimeout(() => { 
         overlay.classList.remove('show'); 
         cancelAnimationFrame(frameId); // 애니메이션 깔끔하게 종료
-      }, 6500);
+      }, 15500);
 
     } else {
       const end = Date.now() + 4000;
