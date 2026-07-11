@@ -369,7 +369,7 @@
 
 <div class="top-bar">
   <div class="event-wrapper" style="display: flex; align-items: center; gap: 10px;">
-    <div class="event-pill">MSI 2026 · 브래킷 스테이지</div>
+    <div class="event-pill">MSI 2026 · FINAL</div>
     <button class="btn-timer btn-bracket-top" onclick="openScheduleModal()">📅</button>
     <button id="btn-bracket" class="btn-timer btn-bracket-top" onclick="openBracketModal()">대진표</button>
   </div>
@@ -457,7 +457,7 @@
 
 <script>
   const teamLeft = 'hle';
-  const teamRight = 'lyon';
+  const teamRight = 'blg';
   // 사용 가능한 키: 't1', 'furia', 'tsw', 'lyon', 'hle', 'g2', 'tes', 'blg'
 
   // ==========================================
@@ -660,7 +660,7 @@
   function checkWinner() {
     const el = document.getElementById('winner-text');
     if (scoreLeft === 3) {
-      el.textContent = `🏆 ${dbTeams[teamLeft].name} 승리!`;
+      el.textContent = `🏆 ${dbTeams[teamLeft].name} MSI 2026 CHAMPIONS`;
       showWinner(dbTeams[teamLeft].name, dbTeams[teamLeft].confetti, dbTeams[teamLeft].winnerImgUrl);
     } else if (scoreRight === 3) {
       el.textContent = `🏆 ${dbTeams[teamRight].name} 승리!`;
