@@ -509,6 +509,7 @@
         name: "HLE",
         region: "LCK · Korea",
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/hle_logo.svg",
+        winnerImgUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/t1/t1win_v6.jpg",
         hasBg: true,
         color: "#f06f25",
         bgStyle: "#fdfbfb",
@@ -695,12 +696,12 @@
         const shadowColor = (Array.isArray(colors) && colors.length > 0) ? colors[0] : colors;
         txt.style.textShadow = `0 4px 25px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,1), 0 0 15px ${shadowColor}`;
 
-    txt.textContent = '🏆 ' + name + ' WIN!';
+    txt.innerHTML = '👑 ' + name + '<br><span style="font-size: 0.7em; font-weight: 600;">MSI 2026 CHAMPIONS!</span>';
     if (overlay) {
         overlay.classList.add('show');
     }
 
-    if (name === 'T1') {
+    if (name === 'HLE') {
       const duration = 6000;
       const animationEnd = Date.now() + duration;
 
