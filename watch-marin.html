@@ -697,10 +697,12 @@
         txt.style.textShadow = `0 4px 25px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,1), 0 0 15px ${shadowColor}`;
 
     if (name === 'HLE') {
-    txt.innerHTML = '👑 ' + name + '<br><span style="font-size: 0.7em; font-weight: 600;">MSI 2026 CHAMPIONS!</span>';
+        txt.innerHTML = '👑 ' + name + '<br><span style="font-size: 0.7em; font-weight: 600;">MSI 2026 CHAMPIONS!</span>';
     } else {
         txt.innerHTML = '👑 ' + name + '<br><span style="font-size: 0.7em; font-weight: 600;">MSI 2026 CHAMPIONS!</span>';
     }
+    
+    if (overlay) {
         overlay.classList.add('show');
     }
 
