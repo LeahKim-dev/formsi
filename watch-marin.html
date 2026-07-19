@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="page-title">MSI 2026</title>
+  <title id="page-title">2026 LoL KeSPA Cup</title>
   
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
@@ -286,13 +286,12 @@
   @keyframes zoomInCustom { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
   #winner-custom-img {
-    width: auto;
-    height: auto;
+    width: 100%;
     max-width: 1400px;
-    max-height: 80vh;
+    height: 80vh;
     object-fit: contain;
     border-radius: 4px;
-    box-shadow: 0 0 200px rgba(255,69,0,0.4); /* 네온 백라이트 강화 */
+    box-shadow: 0 0 200px rgba(235, 16, 46, 0.5); /* 네온 백라이트 강화 */
     display: block;
   }
 
@@ -370,9 +369,9 @@
 
 <div class="top-bar">
   <div class="event-wrapper" style="display: flex; align-items: center; gap: 10px;">
-    <div class="event-pill">MSI 26 · GRAND FINALS</div>
-    <!-- <button class="btn-timer btn-bracket-top" onclick="openScheduleModal()">📅</button>
-    <button id="btn-bracket" class="btn-timer btn-bracket-top" onclick="openBracketModal()">대진표</button> -->
+    <div class="event-pill">2026 LoL KeSPA Cup</div>
+    <button class="btn-timer btn-bracket-top" onclick="openScheduleModal()">📅</button>
+    <button id="btn-bracket" class="btn-timer btn-bracket-top" onclick="openBracketModal()">대진표</button>
   </div>
 
   <div class="real-clock">KST&nbsp;<span id="realtime">--:--:--</span></div>
@@ -457,10 +456,15 @@
 </div>
 
 <script>
-  const teamLeft = 'hle';
-  const teamRight = 'blg';
+  const teamLeft = 'lyon';
+  const teamRight = 'tsw';
   // 사용 가능한 키: 't1', 'furia', 'tsw', 'lyon', 'hle', 'g2', 'tes', 'blg'
-
+  // 7/8
+  // lyon vs tsw 12시
+  // g2 vs t1 5시
+  // 
+  // 7/9
+  // hle vs blg 5시
 
   // ==========================================
   // 데이터 마스터 사전 (팀 정보 통합 관리)
@@ -477,77 +481,156 @@
         shadow: "rgba(200,16,46,0.4)",
         confetti: ['#aa0025','#ff6b6b','#ffffff']
       },
-      furia: {
-        name: "FURIA",
-        region: "CBLOL · Brazil",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/furia_logo.webp",
+      geng: {
+        name: "Gen.G",
+        region: "LCK · Korea",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/geng_logo.png",
         hasBg: true,
-        color: "#f5f39b",
+        color: "#a48528", // 젠지 골드
         bgStyle: "#fdfbfb",
-        shadow: "rgba(253, 252, 172, 0.29)",
-        confetti: ['#ffd86e', '#bfffd5', '#ffffff']
+        shadow: "rgba(164, 133, 40,0.4)",
+        confetti: ['#a48528','#000000','#ffffff']
       },
-      tsw: {
-        name: "TSW",
-        region: "LPL · China",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/tsw_logo.webp",
+      kt: {
+        name: "KT Rolster",
+        region: "LCK · Korea",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/kt_logo.webp",
         hasBg: true,
-        color: "#007fb9",
+        color: "#fc0014",
         bgStyle: "#fdfbfb",
-        shadow: "#007eb96c",
-        confetti: ['#89d2fc9c','#a0dffc9c', '#e8f6fc']
+        shadow: "rgba(245, 135, 147, 0.4)",
+        confetti: ['#ff8a94','#fc0014','#ffffff']
       },
-      lyon: {
-        name: "LYON",
-        region: "LCS · Mexico",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/lyon_logo.svg",
+      dk: {
+        name: "Dplus KIA",
+        region: "LCK · Korea",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/dk_logo.png",
         hasBg: true,
-        color: "#c09d76",
-        bgStyle: "#111111",
-        shadow: "rgba(210,180,140,0.4)",
-        confetti: ['#c09d76', '#4a3c31', '#ffffff']
+        color: "#9efdf6",
+        bgStyle: "#fdfbfb",
+        shadow: "rgba(158, 253, 246,0.4)",
+        confetti: ['#54d6ce','#9efdf6','#ffffff']
+      },
+      bro: {
+        name: "BRO",
+        region: "LCK · Korea",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/brion_logo.png",
+        hasBg: true,
+        color: "#04492c", // 브리온 그린
+        bgStyle: "#fdfbfb",
+        shadow: "rgba(0,74,47,0.4)",
+        confetti: ['#04492cbb','#6bd3a8','#ffffff']
+      },
+      ns: {
+        name: "NS",
+        region: "LCK · Korea",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/ns_logo.svg",
+        hasBg: true,
+        color: "#e90029", // 농심 레드
+        bgStyle: "#fdfbfb",
+        shadow: "rgba(253, 94, 99, 0.4)",
+        confetti: ['#ff849a','#ffffff','#e90029']
+      },
+      bfx: {
+        name: "BFX",
+        region: "LCK · Korea",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/bfx_logo.svg",
+        hasBg: true,
+        color: "#fdcf22", // 피어엑스 폭스 오렌지 (구 KRX 브랜드 변경 반영)
+        bgStyle: "#fdfbfb",
+        shadow: "rgba(253, 207, 34, 0.4)",
+        confetti: ['#fdcf22','#ffea9f','#ffffff']
+      },
+      krx: {
+        name: "KRX",
+        region: "LCK · Korea",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/krx_logo.svg",
+        hasBg: true,
+        color: "#202e5c", // DRX 블루
+        bgStyle: "#fdfbfb",
+        shadow: "rgba(94,148,212,0.4)",
+        confetti: ['#4d60a1','#ffffff','#7389d1','#e2007f']
       },
       hle: {
         name: "HLE",
         region: "LCK · Korea",
         logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/hle_logo.svg",
-        winnerImgUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/hle_win.jpg",
         hasBg: true,
         color: "#f06f25",
         bgStyle: "#fdfbfb",
         shadow: "rgba(255,69,0,0.4)",
         confetti: ['#ff9a60', '#ffecac', '#ffffff']
       },
-      g2: {
-        name: "G2",
-        region: "LEC · Europe",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/g2_logo.svg",
+      dns: {
+        name: "DNS",
+        region: "LCK · Korea",
+        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/dns_logo.png",
         hasBg: true,
-        color: "#006400",
-        bgStyle: "#111111",
-        shadow: "rgba(0,100,0,0.4)",
-        confetti: ['#c7ebc7', '#4f924f', '#ffffff']
-      },
-      tes: {
-        name: "TES",
-        region: "LPL · China",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/tes_logo.webp",
-        hasBg: true,
-        color: "#ca2823",
+        color: "#2457ef",
         bgStyle: "#fdfbfb",
-        shadow: "rgba(230,0,18,0.4)",
-        confetti: ['#ff7570', '#ffffff', '#ffd0d0']
+        shadow: "rgba(36, 87, 239,0.4)",
+        confetti: ['#dbe4ff', '#85a3ff', '#ffffff']
       },
-      blg: {
-        name: "BLG",
-        region: "LPL · China",
-        logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/blg_logo.svg",
-        hasBg: true,
-        color: "#F86F98",
-        bgStyle: "#fdfbfb",
-        shadow: "rgba(255,105,180,0.4)",
-        confetti: ['#8ae4f880', '#faa1bc77', '#ffffff']
-      }
+    // furia: {
+      //   name: "FURIA",
+      //   region: "CBLOL · Brazil",
+      //   logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/furia_logo.webp",
+      //   hasBg: true,
+      //   color: "#f5f39b",
+      //   bgStyle: "#fdfbfb",
+      //   shadow: "rgba(253, 252, 172, 0.29)",
+      //   confetti: ['#ffd86e', '#bfffd5', '#ffffff']
+      // },
+      // tsw: {
+      //   name: "TSW",
+      //   region: "LPL · China",
+      //   logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/tsw_logo.webp",
+      //   hasBg: true,
+      //   color: "#007fb9",
+      //   bgStyle: "#fdfbfb",
+      //   shadow: "#007eb96c",
+      //   confetti: ['#89d2fc9c','#a0dffc9c', '#e8f6fc']
+      // },
+      // lyon: {
+      //   name: "LYON",
+      //   region: "LCS · Mexico",
+      //   logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/lyon_logo.svg",
+      //   hasBg: true,
+      //   color: "#c09d76",
+      //   bgStyle: "#111111",
+      //   shadow: "rgba(210,180,140,0.4)",
+      //   confetti: ['#c09d76', '#4a3c31', '#ffffff']
+      // },
+      // g2: {
+      //   name: "G2",
+      //   region: "LEC · Europe",
+      //   logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/g2_logo.svg",
+      //   hasBg: true,
+      //   color: "#006400",
+      //   bgStyle: "#111111",
+      //   shadow: "rgba(0,100,0,0.4)",
+      //   confetti: ['#c7ebc7', '#4f924f', '#ffffff']
+      // },
+      // tes: {
+      //   name: "TES",
+      //   region: "LPL · China",
+      //   logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/tes_logo.webp",
+      //   hasBg: true,
+      //   color: "#ca2823",
+      //   bgStyle: "#fdfbfb",
+      //   shadow: "rgba(230,0,18,0.4)",
+      //   confetti: ['#ff7570', '#ffffff', '#ffd0d0']
+      // },
+      // blg: {
+      //   name: "BLG",
+      //   region: "LPL · China",
+      //   logoUrl: "https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/teamlogo/blg_logo.svg",
+      //   hasBg: true,
+      //   color: "#F86F98",
+      //   bgStyle: "#fdfbfb",
+      //   shadow: "rgba(255,105,180,0.4)",
+      //   confetti: ['#8ae4f880', '#faa1bc77', '#ffffff']
+      // }
     
     };
 
@@ -698,14 +781,13 @@
         const shadowColor = (Array.isArray(colors) && colors.length > 0) ? colors[0] : colors;
         txt.style.textShadow = `0 4px 25px rgba(0,0,0,1), 0 0 40px rgba(0,0,0,1), 0 0 15px ${shadowColor}`;
 
-        txt.innerHTML = '🏆 ' + name + ' 🏆<br><span style="font-size: 0.7em; font-weight: 600;">MSI 2026 CHAMPIONS</span>';
+    txt.textContent = '🏆 ' + name + ' WIN!';
+    if (overlay) {
+        overlay.classList.add('show');
+    }
 
-        if (overlay) {
-            overlay.classList.add('show');
-        }
-
-    if (name === 'HLE') {
-      const duration = 15000;
+    if (name === 'T1') {
+      const duration = 6000;
       const animationEnd = Date.now() + duration;
 
       function randomInRange(min, max) { return Math.random() * (max - min) + min; }
@@ -756,7 +838,7 @@
       setTimeout(() => { 
         overlay.classList.remove('show'); 
         cancelAnimationFrame(frameId); // 애니메이션 깔끔하게 종료
-      }, 15500);
+      }, 6500);
 
     } else {
       const end = Date.now() + 4000;
