@@ -408,7 +408,7 @@
         <span class="series-sep">:</span>
         <span class="series-num" id="set-right">0</span>
       </div>
-      <div class="series-format">Best of 5</div>
+      <div class="series-format">Best of 1</div>
       <div class="live-badge"><span class="live-dot"></span> Live</div>
     </div>
 
@@ -768,10 +768,10 @@
   // 위너 체크 인터페이스
   function checkWinner() {
     const el = document.getElementById('winner-text');
-    if (scoreLeft === 3) {
+    if (scoreLeft === 1) {
       el.textContent = `🏆 ${dbTeams[teamLeft].name} 승리!`;
       showWinner(dbTeams[teamLeft].name, dbTeams[teamLeft].confetti, dbTeams[teamLeft].winnerImgUrl);
-    } else if (scoreRight === 3) {
+    } else if (scoreRight === 1) {
       el.textContent = `🏆 ${dbTeams[teamRight].name} 승리!`;
       showWinner(dbTeams[teamRight].name, dbTeams[teamRight].confetti, dbTeams[teamRight].winnerImgUrl);
     } else {
