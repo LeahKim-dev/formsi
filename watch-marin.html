@@ -371,7 +371,7 @@
   <div class="event-wrapper" style="display: flex; align-items: center; gap: 10px;">
     <div class="event-pill">2026 LoL KeSPA Cup</div>
     <button class="btn-timer btn-bracket-top" onclick="openScheduleModal()">📅</button>
-    <button id="btn-bracket" class="btn-timer btn-bracket-top" onclick="openBracketModal()">대진표</button>
+    <!-- <button id="btn-bracket" class="btn-timer btn-bracket-top" onclick="openBracketModal()">대진표</button> -->
   </div>
 
   <div class="real-clock">KST&nbsp;<span id="realtime">--:--:--</span></div>
@@ -379,7 +379,7 @@
 
 <div id="schedule-overlay" onclick="closeScheduleModal()">
   <div class="winner-container">
-    <img id="schedule-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/schedule.jpg" alt="일정표" style="max-width: 50vw; max-height: 90vh; border-radius: 16px;">
+    <img id="schedule-img" src="https://raw.githubusercontent.com/LeahKim-dev/formsi/main/src/s_1.png" alt="일정표" style="max-width: 50vw; max-height: 90vh; border-radius: 16px;">
   </div>
 </div>
 <div id="bracket-overlay" onclick="closeBracketModal()">
@@ -456,9 +456,39 @@
 </div>
 
 <script>
-  const teamLeft = 't1';
-  const teamRight = 'hle';
+  const teamLeft = 'geng';
+  const teamRight = 't1';
   // 사용 가능한 키: 't1','geng','kt', 'dk', 'bro','ns','bfx', 'krx','hle','dns'
+  // [2026-07-20](Bo1)
+  // 15:00 - NS vs BRO 
+  // 15:45 - DNS vs BFX 
+  // 16:30 - NS vs KT 
+  // 17:15 - DNS vs BRO 
+  // 18:00 - KRX vs BFX 
+  // 18:45 - DNS vs KT 
+  // 19:30 - KRX vs BRO 
+  // 20:15 - NS vs BFX 
+  // 21:00 - KRX vs KT 
+
+  // [2026-07-21](Bo1)
+  // 15:00 - GEN vs HLE 
+  // 15:45 - BFX vs DK 
+  // 16:30 - GEN vs T1 
+  // 17:15 - KT vs DK 
+  // 18:00 - BRO vs GEN 
+  // 18:45 - HLE vs NS 
+  // 19:30 - T1 vs KRX 
+  // 20:15 - HLE vs DNS 
+
+  // [2026-07-27](Bo1) 
+  // 15:00 - BFX vs GEN 
+  // 15:45 - DK vs HLE 
+  // 16:30 - KT vs GEN 
+  // 17:15 - DK vs T1 
+  // 18:00 - HLE vs KRX 
+  // 18:45 - T1 vs NS 
+  // 19:30 - BRO vs DK 
+  // 20:15 - T1 vs DNS 
   // ==========================================
   // 데이터 마스터 사전 (팀 정보 통합 관리)
   // ==========================================
